@@ -7,6 +7,7 @@ import ViewDocumentDetail from '@/components/views/article/detail'
 
 import AdminLogin from '@/components/admin/login'
 import AdminIndex from '@/components/admin/index'
+import AdminHome from '@/components/admin/home'
 import AdminTagList from '@/components/admin/tag/list'
 import AdminTagAdd from '@/components/admin/tag/add'
 import AdminTagDetail from '@/components/admin/tag/detail'
@@ -32,6 +33,10 @@ const routes = [
     path:'/admin',
     component:AdminIndex,
     children : [
+      {
+        path:'',
+        component: AdminHome
+      },
       {
         path:'login',
         component: AdminLogin

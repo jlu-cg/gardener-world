@@ -19,11 +19,8 @@
         <el-button type="primary" @click="addTag" round>添加</el-button>
         <el-button type="primary" @click="editTag" round>编辑</el-button>
         <el-button type="primary" @click="delTag" round>删除</el-button>
-        <el-button type="primary" @click="addArticle" round>添加文章</el-button>
         <el-button type="primary" @click="articleList" round>查看文章</el-button>
-        <el-button type="primary" @click="addFragment" round>添加碎片</el-button>
         <el-button type="primary" @click="fragmentList" round>查看碎片</el-button>
-        <el-button type="primary" @click="cancelSelect" round>取消选择</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -31,9 +28,9 @@
         <div class="infinite-list-wrapper" style="overflow:auto">
           <el-table ref="singleTable" :data="tagList" highlight-current-row 
             @current-change="handleCurrentChange" style="width: 100%" border>
-            <el-table-column prop="name" label="标签名" width="160">
+            <el-table-column prop="name" label="标签名">
             </el-table-column>
-            <el-table-column prop="namePath" label="标签路径">
+            <el-table-column prop="tagType" :formatter="formatterClassification" label="标签类型" width="260">
             </el-table-column>
           </el-table>
           <p v-if="loading">加载中...</p>
@@ -50,15 +47,14 @@ export default {
     return {
       searchForm : {
         name : '',
-        parentId : 0,
+        tagType: 0,
         lastId : 0
       },
       tagList : [
         {
           "id" : 1, 
           "name" : "数据库",
-          "path" : "数据库",
-          "parentId" : 5
+          "tagType" : 0
         }
       ],
       currentRow : null,
@@ -78,13 +74,6 @@ export default {
     }
   },
   methods: {
-    cancelSelect(row){
-      if(this.currentRow === null){
-        this.checkRow();
-      }else{
-        this.$refs.singleTable.setCurrentRow(row);
-      }
-    },
     loadTags(){
       this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/list', this.searchForm
       ).then((response) => {
@@ -102,6 +91,9 @@ export default {
       setTimeout(() => {
         this.loading = false
       }, 2000)
+    },
+    formatterClassification(row, column){
+      return this.gardener.tagClassification.get(row.tagType);
     },
     handleCurrentChange(val){
       this.currentRow = val;
@@ -123,11 +115,7 @@ export default {
       }
     },
     addTag(){
-      if(this.currentRow === null){
-        window.location.href = '#/admin/tag/add';
-      }else{
-        window.location.href = '#/admin/tag/add?parentTagId=' + this.currentRow.id;
-      }
+      window.location.href = '#/admin/tag/add';
     },
     editTag(){
       if(this.currentRow === null){
@@ -143,25 +131,11 @@ export default {
         alert(this.currentRow.id)
       }
     },
-    addArticle(){
-      if(this.currentRow === null){
-        this.checkRow();
-      }else{
-        window.location.href = '#/admin/article/add?tagId=' + this.currentRow.id;
-      }
-    },
     articleList(){
       if(this.currentRow === null){
         this.checkRow();
       }else{
         window.location.href = '#/admin/article/list?tagId=' + this.currentRow.id;
-      }
-    },
-    addFragment(){
-      if(this.currentRow === null){
-        this.checkRow();
-      }else{
-        window.location.href = '#/admin/fragment/add?tagId=' + this.currentRow.id;
       }
     },
     fragmentList(){

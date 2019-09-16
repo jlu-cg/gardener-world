@@ -1,17 +1,12 @@
 <template>
   <div class="tag-form">
     <el-form ref="tag" :model="tag" label-width="160px">
-      <el-form-item label="父标签">
-        {{parentTag.name}}
-      </el-form-item>
-      <el-form-item label="父标签路径">
-        {{parentTag.namePath}}
-      </el-form-item>
-      <el-form-item label="名称">
+      <el-form-item label="标签名">
         <el-input v-model="tag.name"></el-input>
       </el-form-item>
-      <el-form-item label="简介">
-        <el-input type="textarea" v-model="tag.summary"></el-input>
+      <el-form-item label="标签分类">
+        <el-radio v-model="tag.tagType" :label="1">主话题</el-radio>
+        <el-radio v-model="tag.tagType" :label="2">非主话题</el-radio>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">修改</el-button>
@@ -25,19 +20,10 @@ export default {
   name: 'AdminTagAdd',
   data() {
     return {
-      parentTag : {
-        id : -1,
-        name : "",
-        namePath : "",
-        path : ""
-      },
       tag : {
         id : -1,
         name : "",
-        path : "",
-        summary : "",
-        parentId : -1,
-        namePath : ""
+        tagType : 0
       }
     };
   },
@@ -47,44 +33,22 @@ export default {
   methods: {
     loadEdit(){
       var params = this.gardener.getParams();
-      var parentTagId = this.gardener.getParamInt(params['parentTagId'], -1);
       var tagId = this.gardener.getParamInt(params['tagId'], -1);
-      if(parentTagId == -1 && tagId == -1){
-        this.parentTag.id = 0;
+      if(tagId == -1){
         return ;
       }
 
       this.axios.get(this.gardener.adminBackBaseURL + 'tag/v1/detail', {
         params: {
-          tagId : tagId,
-          parentTagId : parentTagId
+          tagId : tagId
         }
       }).then((response) => {
-        if(tagId != -1){
-          this.parentTag = response.data;
-        }else{
-          this.tag = response.data;
-        }
+        this.tag = response.data;
       }).catch((response)=>{
         
       })
     },
     onSubmit() {
-      if(this.parentTag.id >= 0){
-        this.tag.parentId = this.parentTag.id;
-        if(this.parentTag.path === ''){
-          if(this.parentTag.id > 0){
-            this.tag.path = this.parentTag.id;
-          }
-        }else{
-          this.tag.path = this.parentTag.path + '/' + this.parentTag.id;
-        }
-        if(this.parentTag.id == 0){
-          this.tag.namePath = this.tag.name;
-        }else{
-          this.tag.namePath = this.parentTag.namePath + '/' + this.tag.name;
-        }
-      }
       this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/save', this.tag)
       .then((response) => {
         if(response.data == 0){

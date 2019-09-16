@@ -32,4 +32,10 @@ Gardener.getParamInt = function(paramVal, defaultVal){
   return parseInt(paramVal)
 }
 
+Gardener.tagClassification = new Map([
+  [0, ''],
+  [1, '主话题'],
+  [2, '非主话题']
+]);
+
 export default Gardener;
