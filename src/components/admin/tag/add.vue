@@ -23,7 +23,7 @@ export default {
       tag : {
         id : -1,
         name : "",
-        tagType : 0
+        tagType : 2
       }
     };
   },

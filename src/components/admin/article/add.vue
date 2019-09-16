@@ -4,14 +4,8 @@
       <el-col :span="24">
         <div class="article-form">
           <el-form ref="article" :model="article" label-width="120px">
-            <el-form-item label="标签">
-              {{article.tagId}}
-            </el-form-item>
-            <el-form-item label="名称">
+            <el-form-item label="标题">
               <el-input v-model="article.title"></el-input>
-            </el-form-item>
-            <el-form-item label="简介">
-              <el-input type="textarea" v-model="article.summary"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -29,9 +23,7 @@ export default {
   data() {
     return {
       article : {
-        tagId : -1,
-        title : '',
-        summary : ''
+        title : ''
       }
     };
   },
@@ -42,15 +34,12 @@ export default {
     loadEdit(){
       var params = this.gardener.getParams();
       var articleId = this.gardener.getParamInt(params['articleId'], -1);
-      var tagId = this.gardener.getParamInt(params['tagId'], -1);
-      this.article.tagId = tagId;
-      if(articleId == -1 && tagId == -1){
+      if(articleId == -1){
         return ;
       }
 
       this.axios.get(this.gardener.adminBackBaseURL + 'article/v1/detail', {
         params: {
-          tagId : tagId,
           articleId : articleId
         }
       }).then((response) => {

@@ -1,14 +1,8 @@
 <template>
   <div class="fragment-form">
     <el-form ref="fragment" :model="fragment" label-width="120px">
-      <el-form-item label="标签">
-        {{fragment.tagId}}
-      </el-form-item>
       <el-form-item label="名称">
         <el-input v-model="fragment.title"></el-input>
-      </el-form-item>
-      <el-form-item label="简介">
-        <el-input type="textarea" v-model="fragment.summary"></el-input>
       </el-form-item>
       <el-form-item label="内容">
         <quill-editor class="editor"
@@ -29,19 +23,10 @@ export default {
   name: 'AdminFragmentAdd',
   data() {
     return {
-      tag : {
-        id : 3,
-        name : "",
-        namePath : "",
-        summary : "222",
-        parentId : 2
-      },
       fragment : {
         id : -1,
         title : "",
-        content : "",
-        summary : "",
-        tagId : 0
+        content : ""
       },
       editorOption : {
         modules:{
@@ -77,14 +62,12 @@ export default {
     loadEdit(){
       var params = this.gardener.getParams();
       var fragmentId = this.gardener.getParamInt(params['fragmentId'], -1);
-      var tagId = this.gardener.getParamInt(params['tagId'], -1);
-      if(fragmentId == -1 && tagId == -1){
+      if(fragmentId == -1){
         return ;
       }
 
       this.axios.get(this.gardener.adminBackBaseURL + 'fragment/v1/detail', {
         params: {
-          tagId : tagId,
           fragmentId : fragmentId
         }
       }).then((response) => {

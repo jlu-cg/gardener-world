@@ -14,10 +14,10 @@
     </el-row>
     <el-row class="gardener-title-nav">
       <el-col :span="24">
-        <el-button type="primary" @click="articleRelate" round>关联碎片</el-button>
         <el-button type="primary" @click="addArticle" round>添加</el-button>
         <el-button type="primary" @click="editArticle" round>编辑</el-button>
         <el-button type="primary" @click="delArticle" round>删除</el-button>
+        <el-button type="primary" @click="articleRelate" round>关联碎片</el-button>
         <el-button type="primary" @click="cancelSelect" round>取消选择</el-button>
       </el-col>
     </el-row>
@@ -25,11 +25,7 @@
       <el-col :span="24">
         <el-table ref="singleTable" :data="articleList" highlight-current-row 
             @current-change="handleCurrentChange" style="width: 100%" border>
-          <el-table-column prop="tagId" label="标签" width="160">
-          </el-table-column>
-          <el-table-column prop="title" label="标题" width="360">
-          </el-table-column>
-          <el-table-column prop="summary" label="简介">
+          <el-table-column prop="title" label="标题">
           </el-table-column>
         </el-table>
       </el-col>
@@ -42,8 +38,7 @@ export default {
   data() {
     return {
       searchForm : {
-        title : '',
-        tagId : -1
+        title : ''
       },
       articleList : [],
       currentRow : null,
@@ -52,8 +47,6 @@ export default {
     };
   },
   created(){
-    var params = this.gardener.getParams();
-    this.searchForm.tagId = this.gardener.getParamInt(params['tagId'], -1);
     this.loadArticles();
   },
   methods:{
@@ -94,6 +87,9 @@ export default {
       }else{
         window.location.href = '#/admin/article/detail?articleId=' + this.currentRow.id;
       }
+    },
+    addArticle(){
+      window.location.href = '#/admin/article/add';
     },
     editArticle(){
       if(this.currentRow === null){

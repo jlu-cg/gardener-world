@@ -4,11 +4,9 @@
       <el-form-item label="名称">
         {{tag.name}}
       </el-form-item>
-      <el-form-item label="标签路径">
-        {{tag.tagPath}}
-      </el-form-item>
-      <el-form-item label="简介">
-        {{tag.summary}}
+      <el-form-item label="标签分类">
+        <el-radio disabled v-model="tag.tagType" :label="1">主话题</el-radio>
+        <el-radio disabled v-model="tag.tagType" :label="2">非主话题</el-radio>
       </el-form-item>
       <el-form-item>
         <el-button @click="backToList">回到列表页</el-button>
@@ -24,8 +22,7 @@ export default {
       tag : {
         id : "3",
         name : "",
-        tagPath : "",
-        summary : "222"
+        tagType : 2
       }
     };
   },

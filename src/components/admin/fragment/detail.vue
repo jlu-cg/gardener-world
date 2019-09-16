@@ -1,14 +1,8 @@
 <template>
   <div class="fragment-form">
     <el-form ref="fragment" :model="fragment" label-width="120px">
-      <el-form-item label="标签">
-        {{fragment.tagId}}
-      </el-form-item>
       <el-form-item label="名称">
         {{fragment.title}}
-      </el-form-item>
-      <el-form-item label="简介">
-        {{fragment.summary}}
       </el-form-item>
       <el-form-item label="内容">
         <div v-html="fragment.content" />
@@ -25,19 +19,10 @@ export default {
   name: 'AdminFragmentDetail',
   data() {
     return {
-      tag : {
-        id : "3",
-        name : "",
-        namePath : "",
-        summary : "222",
-        parentId : "2"
-      },
       fragment : {
         id : -1,
         title : "",
-        content : "",
-        summary : "",
-        tagId : 0
+        content : ""
       }
     };
   },
@@ -46,7 +31,7 @@ export default {
   },
   methods:{
     loadData(){
-      var params = this.getParams();
+      var params = this.gardener.getParams();
       if(params['fragmentId'] === undefined || params['fragmentId'] === ''){
         return ;
       }
@@ -63,20 +48,6 @@ export default {
     },
     backToList(){
       window.location.href = '#/admin/fragment/list';
-    },
-    getParams() {
-      var url = window.location.href;
-      var obj = {};
-      var reg = /[?&][^?&]+=[^?&]+/g;
-      var arr = url.match(reg);
-      if (arr === null) return obj;
-      arr.forEach(function (item) {
-        var tempArr = item.substring(1).split('=');
-        var key = decodeURIComponent(tempArr[0]);
-        var val = decodeURIComponent(tempArr[1]);
-        obj[key] = val;
-      });
-      return obj;
     }
   }
 }

@@ -14,7 +14,7 @@
     </el-row>
     <el-row class="gardener-title-nav">
       <el-col :span="24">
-        <el-button type="primary" @click="addFragment" round>添加碎片</el-button>
+        <el-button type="primary" @click="addFragment" round>添加</el-button>
         <el-button type="primary" @click="editFragment" round>编辑</el-button>
         <el-button type="primary" @click="delFragment" round>删除</el-button>
         <el-button type="primary" @click="cancelSelect" round>取消选择</el-button>
@@ -25,11 +25,7 @@
         <div class="infinite-list-wrapper" style="overflow:auto">
           <el-table ref="singleTable" :data="fragmentList" highlight-current-row 
             @current-change="handleCurrentChange" style="width: 100%" border>
-            <el-table-column prop="tagId" label="标签" width="160">
-            </el-table-column>
-            <el-table-column prop="title" label="标题" width="260">
-            </el-table-column>
-            <el-table-column prop="summary" label="简介">
+            <el-table-column prop="title" label="标题">
             </el-table-column>
           </el-table>
         </div>
@@ -43,8 +39,7 @@ export default {
   data() {
     return {
       searchForm : {
-        title : '',
-        tagId : -1
+        title : ''
       },
       fragmentList : [],
       currentRow : null,
@@ -53,8 +48,6 @@ export default {
     };
   },
   created(){
-    var params = this.gardener.getParams();
-    this.searchForm.tagId = this.gardener.getParamInt(params['tagId'], -1);
     this.loadFragments();
   },
   methods:{
@@ -90,11 +83,7 @@ export default {
       this.loadFragments();
     },
     addFragment(){
-      if(this.currentRow === null){
-        window.location.href = '#/admin/fragment/add';
-      }else{
-        window.location.href = '#/admin/fragment/add?tagId=' + this.currentRow.tagId;
-      }
+      window.location.href = '#/admin/fragment/add';
     },
     editFragment(){
       if(this.currentRow === null){

@@ -11,14 +11,8 @@
           <el-col :span="24">
             <div class="article-form">
               <el-form ref="article" :model="article" label-width="120px">
-                <el-form-item label="标签">
-                  {{article.tagId}}
-                </el-form-item>
                 <el-form-item label="名称">
                   {{article.title}}
-                </el-form-item>
-                <el-form-item label="简介">
-                  {{article.summary}}
                 </el-form-item>
               </el-form>
             </div>
@@ -39,18 +33,16 @@
           <el-col :span="24">
             <el-table ref="singleTable" :data="articleRelation.articleRelationDetails" highlight-current-row
                 @current-change="handleCurrentChange" style="width: 100%" :row-class-name="tableRowClassName" border>
-              <el-table-column prop="title" label="标题" width="360">
+              <el-table-column prop="title" label="碎片标题">
               </el-table-column>
-              <el-table-column prop="summary" label="简介">
-              </el-table-column>
-              <el-table-column prop="pos" label="位置" width="80">
+              <el-table-column prop="pos" label="位置" width="260">
               </el-table-column>
             </el-table>
           </el-col>
         </el-row>
         <el-dialog title="添加文章关联碎片" :visible.sync="articleRelation.addArticleRelationVisible">
           <el-form :inline="true" :model="articleRelation.searchFragmentForm" class="demo-form-inline">
-            <el-form-item label="标题">
+            <el-form-item label="碎片标题">
               <el-input v-model="articleRelation.searchFragmentForm.title" placeholder="标题"></el-input>
             </el-form-item>
             <el-form-item>
@@ -60,9 +52,7 @@
 
           <el-table ref="singleSelectTable" :data="articleRelation.selectFragmentList" highlight-current-row 
               @current-change="handleSelectCurrentChange" style="width: 100%" border>
-            <el-table-column prop="title" label="标题" width="360">
-            </el-table-column>
-            <el-table-column prop="summary" label="简介">
+            <el-table-column prop="title" label="碎片标题">
             </el-table-column>
           </el-table>
 
@@ -86,11 +76,9 @@
           <el-col :span="24">
             <el-table ref="articleDependenceSingleTable" :data="articleDependence.articleDependenceDetails" highlight-current-row
                 @current-change="articleDependenceHandleCurrentChange" style="width: 100%" :row-class-name="articleDependenceTableRowClassName" border>
-              <el-table-column prop="title" label="标题" width="360">
+              <el-table-column prop="title" label="文章标题">
               </el-table-column>
-              <el-table-column prop="summary" label="简介">
-              </el-table-column>
-              <el-table-column prop="pos" label="位置" width="80">
+              <el-table-column prop="pos" label="位置" width="260">
               </el-table-column>
             </el-table>
           </el-col>
@@ -107,9 +95,7 @@
 
           <el-table ref="articleDependenceSingleSelectTable" :data="articleDependence.selectArticleList" highlight-current-row 
               @current-change="articleDependenceHandleSelectCurrentChange" style="width: 100%" border>
-            <el-table-column prop="title" label="标题" width="360">
-            </el-table-column>
-            <el-table-column prop="summary" label="简介">
+            <el-table-column prop="title" label="文章标题">
             </el-table-column>
           </el-table>
 
