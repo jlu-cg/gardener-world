@@ -19,88 +19,88 @@
           </el-col>
         </el-row>
       </el-tab-pane>
-      <el-tab-pane label="关联碎片" name="articleRelation">
+      <el-tab-pane label="关联碎片" name="articleFragmentRelation">
         <el-row class="gardener-title-nav">
           <el-col :span="24">
-            <el-button type="primary" @click="addArticleRelation" round>添加</el-button>
+            <el-button type="primary" @click="addArticleFragmentRelation" round>添加</el-button>
             <el-button type="primary" @click="moveOn" round>上移</el-button>
             <el-button type="primary" @click="moveDown" round>下移</el-button>
             <el-button type="primary" @click="saveOrder" round>保存顺序</el-button>
-            <el-button type="primary" @click="delArticleRelation" round>删除</el-button>
+            <el-button type="primary" @click="delArticleFragmentRelation" round>删除</el-button>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-table ref="singleTable" :data="articleRelation.articleRelationDetails" highlight-current-row
+            <el-table ref="singleTable" :data="articleFragmentRelation.articleFragmentRelationDetails" highlight-current-row
                 @current-change="handleCurrentChange" style="width: 100%" :row-class-name="tableRowClassName" border>
               <el-table-column prop="title" label="碎片标题">
               </el-table-column>
-              <el-table-column prop="pos" label="位置" width="260">
+              <el-table-column prop="position" label="位置" width="260">
               </el-table-column>
             </el-table>
           </el-col>
         </el-row>
-        <el-dialog title="添加文章关联碎片" :visible.sync="articleRelation.addArticleRelationVisible">
-          <el-form :inline="true" :model="articleRelation.searchFragmentForm" class="demo-form-inline">
+        <el-dialog title="添加文章关联碎片" :visible.sync="articleFragmentRelation.addArticleFragmentRelationVisible">
+          <el-form :inline="true" :model="articleFragmentRelation.searchFragmentForm" class="demo-form-inline">
             <el-form-item label="碎片标题">
-              <el-input v-model="articleRelation.searchFragmentForm.title" placeholder="标题"></el-input>
+              <el-input v-model="articleFragmentRelation.searchFragmentForm.title" placeholder="标题"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSearchFragmentSubmit">查询</el-button>
             </el-form-item>
           </el-form>
 
-          <el-table ref="singleSelectTable" :data="articleRelation.selectFragmentList" highlight-current-row 
+          <el-table ref="singleSelectTable" :data="articleFragmentRelation.selectFragmentList" highlight-current-row 
               @current-change="handleSelectCurrentChange" style="width: 100%" border>
             <el-table-column prop="title" label="碎片标题">
             </el-table-column>
           </el-table>
 
           <div slot="footer" class="dialog-footer">
-            <el-button @click="articleRelation.addArticleRelationVisible = false">取 消</el-button>
+            <el-button @click="articleFragmentRelation.addArticleFragmentRelationVisible = false">取 消</el-button>
             <el-button type="primary" @click="selectFragment">确定</el-button>
           </div>
         </el-dialog>
       </el-tab-pane>
-      <el-tab-pane label="依赖文章" name="articleDependence">
+      <el-tab-pane label="依赖文章" name="articleArticleRelation">
         <el-row class="gardener-title-nav">
           <el-col :span="24">
-            <el-button type="primary" @click="articleDependenceAdd" round>添加</el-button>
-            <el-button type="primary" @click="articleDependenceMoveOn" round>上移</el-button>
-            <el-button type="primary" @click="articleDependenceMoveDown" round>下移</el-button>
-            <el-button type="primary" @click="articleDependenceSaveOrder" round>保存顺序</el-button>
-            <el-button type="primary" @click="articleDependenceDel" round>删除</el-button>
+            <el-button type="primary" @click="articleArticleRelationAdd" round>添加</el-button>
+            <el-button type="primary" @click="articleArticleRelationMoveOn" round>上移</el-button>
+            <el-button type="primary" @click="articleArticleRelationMoveDown" round>下移</el-button>
+            <el-button type="primary" @click="articleArticleRelationSaveOrder" round>保存顺序</el-button>
+            <el-button type="primary" @click="articleArticleRelationDel" round>删除</el-button>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-table ref="articleDependenceSingleTable" :data="articleDependence.articleDependenceDetails" highlight-current-row
-                @current-change="articleDependenceHandleCurrentChange" style="width: 100%" :row-class-name="articleDependenceTableRowClassName" border>
+            <el-table ref="articleArticleRelationSingleTable" :data="articleArticleRelation.articleArticleRelationDetails" highlight-current-row
+                @current-change="articleArticleRelationHandleCurrentChange" style="width: 100%" :row-class-name="articleArticleRelationTableRowClassName" border>
               <el-table-column prop="title" label="文章标题">
               </el-table-column>
-              <el-table-column prop="pos" label="位置" width="260">
+              <el-table-column prop="position" label="位置" width="260">
               </el-table-column>
             </el-table>
           </el-col>
         </el-row>
-        <el-dialog title="添加依赖文章" :visible.sync="articleDependence.addArticleDependenceVisible">
-          <el-form :inline="true" :model="articleDependence.searchArticleForm" class="demo-form-inline">
+        <el-dialog title="添加依赖文章" :visible.sync="articleArticleRelation.addArticleArticleRelationVisible">
+          <el-form :inline="true" :model="articleArticleRelation.searchArticleForm" class="demo-form-inline">
             <el-form-item label="标题">
-              <el-input v-model="articleDependence.searchArticleForm.title" placeholder="标题"></el-input>
+              <el-input v-model="articleArticleRelation.searchArticleForm.title" placeholder="标题"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSearchArticleSubmit">查询</el-button>
             </el-form-item>
           </el-form>
 
-          <el-table ref="articleDependenceSingleSelectTable" :data="articleDependence.selectArticleList" highlight-current-row 
-              @current-change="articleDependenceHandleSelectCurrentChange" style="width: 100%" border>
+          <el-table ref="articleArticleRelationSingleSelectTable" :data="articleArticleRelation.selectArticleList" highlight-current-row 
+              @current-change="articleArticleRelationHandleSelectCurrentChange" style="width: 100%" border>
             <el-table-column prop="title" label="文章标题">
             </el-table-column>
           </el-table>
 
           <div slot="footer" class="dialog-footer">
-            <el-button @click="articleDependence.addArticleDependenceVisible = false">取 消</el-button>
+            <el-button @click="articleArticleRelation.addArticleArticleRelationVisible = false">取 消</el-button>
             <el-button type="primary" @click="selectArticle">确定</el-button>
           </div>
         </el-dialog>
@@ -122,45 +122,43 @@ export default {
         title : '',
         summary : ''
       },
-      articleRelation:{
+      articleFragmentRelation:{
         loaded : 0,
-        articleRelationList : {
+        articleFragmentRelationList : {
           articleId : -1
         },
-        articleRelationDetailForm : {
+        articleFragmentRelationDetailForm : {
           articleId : -1,
           fragmentId : -1,
-          pos : 0
+          position : 0
         },
-        articleRelationDetails:[],
-        addArticleRelationVisible: false,
+        articleFragmentRelationDetails:[],
+        addArticleFragmentRelationVisible: false,
         searchFragmentForm : {
-          title : '',
-          tagId : -1
+          title : ''
         },
         selectFragmentList : [],
         currentRow : null,
-        currentselectRow : null
+        currentSelectRow : null
       },
-      articleDependence:{
+      articleArticleRelation:{
         loaded : 0,
-        articleDependenceList : {
+        articleArticleRelationList : {
           articleId : -1
         },
-        articleDependenceDetailForm : {
+        articleArticleRelationDetailForm : {
           articleId : -1,
-          dependArticleId : -1,
-          pos : 0
+          relateArticleId : -1,
+          position : 0
         },
-        articleDependenceDetails:[],
-        addArticleDependenceVisible: false,
+        articleArticleRelationDetails:[],
+        addArticleArticleRelationVisible: false,
         searchArticleForm : {
-          title : '',
-          tagId : -1
+          title : ''
         },
         selectArticleList : [],
         currentRow : null,
-        currentselectRow : null
+        currentSelectRow : null
       }
     };
   },
@@ -181,10 +179,10 @@ export default {
         return ;
       }
 
-      this.articleRelation.articleRelationDetailForm.articleId = articleId;
-      this.articleRelation.articleRelationList.articleId = articleId;
-      this.articleDependence.articleDependenceDetailForm.articleId = articleId;
-      this.articleDependence.articleDependenceList.articleId = articleId;
+      this.articleFragmentRelation.articleFragmentRelationDetailForm.articleId = articleId;
+      this.articleFragmentRelation.articleFragmentRelationList.articleId = articleId;
+      this.articleArticleRelation.articleArticleRelationDetailForm.articleId = articleId;
+      this.articleArticleRelation.articleArticleRelationList.articleId = articleId;
 
       this.axios.get(this.gardener.adminBackBaseURL + 'article/v1/detail', {
         params: {
@@ -192,8 +190,6 @@ export default {
         }
       }).then((response) => {
         this.article = response.data;
-        this.articleRelation.searchFragmentForm.tagId = this.article.tagId;
-        this.articleDependence.articleDependenceDetailForm.dependTagId = this.article.tagId;
       }).catch((response)=>{
         
       })
@@ -220,25 +216,27 @@ export default {
       })
     },
     handleCurrentChange(val){
-      this.articleRelation.currentRow = val;
+      this.articleFragmentRelation.currentRow = val;
     },
-    addArticleRelation(){
-      this.articleRelation.addArticleRelationVisible = true;
+    addArticleFragmentRelation(){
+      this.articleFragmentRelation.addArticleFragmentRelationVisible = true;
     },
     handleTabClick(tab, event){
-      if(this.articleRelation.loaded === 0 && this.activeName === 'articleRelation'){
-        this.loadArticleRelationDetails();
-        this.articleRelation.loaded = 1;
-      }else if(this.articleDependence.loaded === 0 && this.activeName === 'articleDependence'){
-        this.loadArticleDependenceDetails();
-        this.articleDependence.loaded = 1;
+      if(this.articleFragmentRelation.loaded === 0 && this.activeName === 'articleFragmentRelation'){
+        this.loadArticleFragmentRelationDetails();
+        this.articleFragmentRelation.loaded = 1;
+      }else if(this.articleArticleRelation.loaded === 0 && this.activeName === 'articleArticleRelation'){
+        this.loadArticleArticleRelationDetails();
+        this.articleArticleRelation.loaded = 1;
       }
 
     },
-    loadArticleRelationDetails(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'article/relation/v1/list', this.articleRelation.articleRelationList
+    loadArticleFragmentRelationDetails(){
+      this.axios.post(this.gardener.adminBackBaseURL + 'article/fragment/relation/v1/list', this.articleFragmentRelation.articleFragmentRelationList
       ).then((response) => {
-        this.articleRelation.articleRelationDetails = response.data;
+        if(response.data != null){
+          this.articleFragmentRelation.articleFragmentRelationDetails = response.data;
+        }
       }).catch((response)=>{
         
       })
@@ -247,50 +245,50 @@ export default {
       row.index = rowIndex;
     },
     moveOn(){
-      if(this.articleRelation.currentRow === null){
+      if(this.articleFragmentRelation.currentRow === null){
         this.checkRow();
-      }else if(this.articleRelation.currentRow.index === 0){
+      }else if(this.articleFragmentRelation.currentRow.index === 0){
         this.$message({
           message: '已经到达最上位置',
           type: 'warning'
         });
       }else{
-        this.$set(this.articleRelation.articleRelationDetails, this.articleRelation.currentRow.index, this.articleRelation.articleRelationDetails[this.articleRelation.currentRow.index - 1]);
-        this.$set(this.articleRelation.articleRelationDetails, this.articleRelation.currentRow.index - 1, this.articleRelation.currentRow);
-        this.$refs.singleTable.setCurrentRow(this.articleRelation.currentRow);
+        this.$set(this.articleFragmentRelation.articleFragmentRelationDetails, this.articleFragmentRelation.currentRow.index, this.articleFragmentRelation.articleFragmentRelationDetails[this.articleFragmentRelation.currentRow.index - 1]);
+        this.$set(this.articleFragmentRelation.articleFragmentRelationDetails, this.articleFragmentRelation.currentRow.index - 1, this.articleFragmentRelation.currentRow);
+        this.$refs.singleTable.setCurrentRow(this.articleFragmentRelation.currentRow);
       }
     },
     moveDown(){
-      if(this.articleRelation.currentRow === null){
+      if(this.articleFragmentRelation.currentRow === null){
         this.checkRow();
-      }else if(this.articleRelation.currentRow.index === this.articleRelation.articleRelationDetails.length - 1){
+      }else if(this.articleFragmentRelation.currentRow.index === this.articleFragmentRelation.articleFragmentRelationDetails.length - 1){
         this.$message({
           message: '已经到达最下位置',
           type: 'warning'
         });
       }else{
-        this.$set(this.articleRelation.articleRelationDetails, this.articleRelation.currentRow.index, this.articleRelation.articleRelationDetails[this.articleRelation.currentRow.index + 1]);
-        this.$set(this.articleRelation.articleRelationDetails, this.articleRelation.currentRow.index + 1, this.articleRelation.currentRow);
-        this.$refs.singleTable.setCurrentRow(this.articleRelation.currentRow);
+        this.$set(this.articleFragmentRelation.articleFragmentRelationDetails, this.articleFragmentRelation.currentRow.index, this.articleFragmentRelation.articleFragmentRelationDetails[this.articleFragmentRelation.currentRow.index + 1]);
+        this.$set(this.articleFragmentRelation.articleFragmentRelationDetails, this.articleFragmentRelation.currentRow.index + 1, this.articleFragmentRelation.currentRow);
+        this.$refs.singleTable.setCurrentRow(this.articleFragmentRelation.currentRow);
       }
     },
     saveOrder(){
-      for ( var i = 0; i < this.articleRelation.articleRelationDetails.length; i++){
-        this.articleRelation.articleRelationDetails[i].pos = i;
+      for ( var i = 0; i < this.articleFragmentRelation.articleFragmentRelationDetails.length; i++){
+        this.articleFragmentRelation.articleFragmentRelationDetails[i].position = i;
       }
-      this.axios.post(this.gardener.adminBackBaseURL + 'article/relation/v1/saveOrder', this.articleRelation.articleRelationDetails
+      this.axios.post(this.gardener.adminBackBaseURL + 'article/fragment/relation/v1/saveOrder', this.articleFragmentRelation.articleFragmentRelationDetails
       ).then((response) => {
         this.$message({
           message: '修改关联顺序成功',
           type: 'success'
         });
-        this.loadArticleRelationDetails();
+        this.loadArticleFragmentRelationDetails();
       }).catch((response)=>{
         
       })
     },
-    delArticleRelation(){
-      if(this.articleRelation.currentRow === null){
+    delArticleFragmentRelation(){
+      if(this.articleFragmentRelation.currentRow === null){
         this.checkRow();
       }else{
         this.$confirm('此操作将永久删除该关联, 是否继续?', '提示', {
@@ -298,13 +296,13 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.axios.get(this.gardener.adminBackBaseURL + 'article/relation/v1/delete?articleRelationId=' + this.articleRelation.currentRow.id
+          this.axios.get(this.gardener.adminBackBaseURL + 'article/fragment/relation/v1/delete?articleFragmentRelationId=' + this.articleFragmentRelation.currentRow.id
           ).then((response) => {
             this.$message({
               type: 'success',
               message: '删除成功!'
             });
-            this.loadArticleRelationDetails();
+            this.loadArticleFragmentRelationDetails();
           }).catch((response)=>{
             
           })
@@ -317,9 +315,9 @@ export default {
       }
     },
     selectFragment(){
-      this.articleRelation.articleRelationDetailForm.fragmentId = this.articleRelation.currentselectRow.id;
-      this.articleRelation.articleRelationDetailForm.pos = this.articleRelation.articleRelationDetails.length;
-      this.axios.post(this.gardener.adminBackBaseURL + 'article/relation/v1/save', this.articleRelation.articleRelationDetailForm
+      this.articleFragmentRelation.articleFragmentRelationDetailForm.fragmentId = this.articleFragmentRelation.currentSelectRow.id;
+      this.articleFragmentRelation.articleFragmentRelationDetailForm.position = this.articleFragmentRelation.articleFragmentRelationDetails.length;
+      this.axios.post(this.gardener.adminBackBaseURL + 'article/fragment/relation/v1/save', this.articleFragmentRelation.articleFragmentRelationDetailForm
       ).then((response) => {
         if(response.data === -1){
             this.$message({
@@ -331,88 +329,88 @@ export default {
             message: '添加关联关系成功',
             type: 'success'
           });
-          this.loadArticleRelationDetails();
+          this.loadArticleFragmentRelationDetails();
         }
       }).catch((response)=>{
         
       })
-      this.articleRelation.addArticleRelationVisible = false;
+      this.articleFragmentRelation.addArticleFragmentRelationVisible = false;
     },
     onSearchFragmentSubmit(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/v1/list', this.articleRelation.searchFragmentForm
+      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/v1/list', this.articleFragmentRelation.searchFragmentForm
       ).then((response) => {
-        this.articleRelation.selectFragmentList = response.data;
+        this.articleFragmentRelation.selectFragmentList = response.data;
       }).catch((response)=>{
         
       });
     },
     handleSelectCurrentChange(val){
-      this.articleRelation.currentselectRow = val;
+      this.articleFragmentRelation.currentSelectRow = val;
     },
 /** ------------------------------------------------------------------------------------------------------- */
     //依赖文章
-    articleDependenceHandleCurrentChange(val){
-      this.articleDependence.currentRow = val;
+    articleArticleRelationHandleCurrentChange(val){
+      this.articleArticleRelation.currentRow = val;
     },
-    articleDependenceAdd(){
-      this.articleDependence.addArticleDependenceVisible = true;
+    articleArticleRelationAdd(){
+      this.articleArticleRelation.addArticleArticleRelationVisible = true;
     },
-    loadArticleDependenceDetails(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'article/dependence/v1/list', this.articleDependence.articleDependenceList
+    loadArticleArticleRelationDetails(){
+      this.axios.post(this.gardener.adminBackBaseURL + 'article/article/relation/v1/list', this.articleArticleRelation.articleArticleRelationList
       ).then((response) => {
-        this.articleDependence.articleDependenceDetails = response.data;
+        this.articleArticleRelation.articleArticleRelationDetails = response.data;
       }).catch((response)=>{
         
       })
     },
-    articleDependenceTableRowClassName ({row, rowIndex}) {
+    articleArticleRelationTableRowClassName ({row, rowIndex}) {
       row.index = rowIndex;
     },
-    articleDependenceMoveOn(){
-      if(this.articleDependence.currentRow === null){
+    articleArticleRelationMoveOn(){
+      if(this.articleArticleRelation.currentRow === null){
         this.checkRow();
-      }else if(this.articleDependence.currentRow.index === 0){
+      }else if(this.articleArticleRelation.currentRow.index === 0){
         this.$message({
           message: '已经到达最上位置',
           type: 'warning'
         });
       }else{
-        this.$set(this.articleDependence.articleDependenceDetails, this.articleDependence.currentRow.index, this.articleDependence.articleDependenceDetails[this.articleDependence.currentRow.index - 1]);
-        this.$set(this.articleDependence.articleDependenceDetails, this.articleDependence.currentRow.index - 1, this.articleDependence.currentRow);
-        this.$refs.articleDependenceSingleTable.setCurrentRow(this.articleDependence.currentRow);
+        this.$set(this.articleArticleRelation.articleArticleRelationDetails, this.articleArticleRelation.currentRow.index, this.articleArticleRelation.articleArticleRelationDetails[this.articleArticleRelation.currentRow.index - 1]);
+        this.$set(this.articleArticleRelation.articleArticleRelationDetails, this.articleArticleRelation.currentRow.index - 1, this.articleArticleRelation.currentRow);
+        this.$refs.articleArticleRelationSingleTable.setCurrentRow(this.articleArticleRelation.currentRow);
       }
     },
-    articleDependenceMoveDown(){
-      if(this.articleDependence.currentRow === null){
+    articleArticleRelationMoveDown(){
+      if(this.articleArticleRelation.currentRow === null){
         this.checkRow();
-      }else if(this.articleDependence.currentRow.index === this.articleDependence.articleDependenceDetails.length - 1){
+      }else if(this.articleArticleRelation.currentRow.index === this.articleArticleRelation.articleArticleRelationDetails.length - 1){
         this.$message({
           message: '已经到达最下位置',
           type: 'warning'
         });
       }else{
-        this.$set(this.articleDependence.articleDependenceDetails, this.articleDependence.currentRow.index, this.articleDependence.articleDependenceDetails[this.articleDependence.currentRow.index + 1]);
-        this.$set(this.articleDependence.articleDependenceDetails, this.articleDependence.currentRow.index + 1, this.articleDependence.currentRow);
-        this.$refs.articleDependenceSingleTable.setCurrentRow(this.articleDependence.currentRow);
+        this.$set(this.articleArticleRelation.articleArticleRelationDetails, this.articleArticleRelation.currentRow.index, this.articleArticleRelation.articleArticleRelationDetails[this.articleArticleRelation.currentRow.index + 1]);
+        this.$set(this.articleArticleRelation.articleArticleRelationDetails, this.articleArticleRelation.currentRow.index + 1, this.articleArticleRelation.currentRow);
+        this.$refs.articleArticleRelationSingleTable.setCurrentRow(this.articleArticleRelation.currentRow);
       }
     },
-    articleDependenceSaveOrder(){
-      for ( var i = 0; i < this.articleDependence.articleDependenceDetails.length; i++){
-        this.articleDependence.articleDependenceDetails[i].pos = i;
+    articleArticleRelationSaveOrder(){
+      for ( var i = 0; i < this.articleArticleRelation.articleArticleRelationDetails.length; i++){
+        this.articleArticleRelation.articleArticleRelationDetails[i].position = i;
       }
-      this.axios.post(this.gardener.adminBackBaseURL + 'article/dependence/v1/saveOrder', this.articleDependence.articleDependenceDetails
+      this.axios.post(this.gardener.adminBackBaseURL + 'article/article/relation/v1/saveOrder', this.articleArticleRelation.articleArticleRelationDetails
       ).then((response) => {
         this.$message({
           message: '修改关联顺序成功',
           type: 'success'
         });
-        this.loadArticleDependenceDetails();
+        this.loadArticleArticleRelationDetails();
       }).catch((response)=>{
         
       })
     },
-    articleDependenceDel(){
-      if(this.articleDependence.currentRow === null){
+    articleArticleRelationDel(){
+      if(this.articleArticleRelation.currentRow === null){
         this.checkRow();
       }else{
         this.$confirm('此操作将永久删除该关联, 是否继续?', '提示', {
@@ -420,13 +418,13 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.axios.get(this.gardener.adminBackBaseURL + 'article/dependence/v1/delete?articleDependenceId=' + this.articleDependence.currentRow.id
+          this.axios.get(this.gardener.adminBackBaseURL + 'article/article/relation/v1/delete?articleArticleRelationId=' + this.articleArticleRelation.currentRow.id
           ).then((response) => {
             this.$message({
               type: 'success',
               message: '删除成功!'
             });
-            this.loadArticleDependenceDetails();
+            this.loadArticleArticleRelationDetails();
           }).catch((response)=>{
             
           })
@@ -439,13 +437,13 @@ export default {
       }
     },
     selectArticle(){
-      this.articleDependence.articleDependenceDetailForm.dependArticleId = this.articleDependence.currentselectRow.id;
-      if(this.articleDependence.articleDependenceDetails === null){
-        this.articleDependence.articleDependenceDetailForm.pos = 0;
+      this.articleArticleRelation.articleArticleRelationDetailForm.relateArticleId = this.articleArticleRelation.currentSelectRow.id;
+      if(this.articleArticleRelation.articleArticleRelationDetails === null){
+        this.articleArticleRelation.articleArticleRelationDetailForm.position = 0;
       }else{
-        this.articleDependence.articleDependenceDetailForm.pos = this.articleDependence.articleDependenceDetails.length;
+        this.articleArticleRelation.articleArticleRelationDetailForm.position = this.articleArticleRelation.articleArticleRelationDetails.length;
       }
-      this.axios.post(this.gardener.adminBackBaseURL + 'article/dependence/v1/save', this.articleDependence.articleDependenceDetailForm
+      this.axios.post(this.gardener.adminBackBaseURL + 'article/article/relation/v1/save', this.articleArticleRelation.articleArticleRelationDetailForm
       ).then((response) => {
         if(response.data === -1){
             this.$message({
@@ -457,23 +455,23 @@ export default {
             message: '添加关联关系成功',
             type: 'success'
           });
-          this.loadArticleDependenceDetails();
+          this.loadArticleArticleRelationDetails();
         }
       }).catch((response)=>{
         
       })
-      this.articleDependence.addArticleDependenceVisible = false;
+      this.articleArticleRelation.addArticleArticleRelationVisible = false;
     },
     onSearchArticleSubmit(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'article/v1/list', this.articleDependence.searchArticleForm
+      this.axios.post(this.gardener.adminBackBaseURL + 'article/v1/list', this.articleArticleRelation.searchArticleForm
       ).then((response) => {
-        this.articleDependence.selectArticleList = response.data;
+        this.articleArticleRelation.selectArticleList = response.data;
       }).catch((response)=>{
         
       });
     },
-    articleDependenceHandleSelectCurrentChange(val){
-      this.articleDependence.currentselectRow = val;
+    articleArticleRelationHandleSelectCurrentChange(val){
+      this.articleArticleRelation.currentSelectRow = val;
     },
     backToList(){},
     checkRow(){
