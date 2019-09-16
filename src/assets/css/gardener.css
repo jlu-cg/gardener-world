@@ -1,0 +1,29 @@
+.gardener-auxiliary-text{
+    color: #606266;
+    font-size: 12px;
+}
+.gardener-samll-text{
+    color: #606266;
+    font-size: 13px;
+}
+.gardener-text{
+    color: #606266;
+    font-size: 14px;
+}
+.gardener-small-title{
+    color: #606266;
+    font-size: 16px;
+    padding-bottom: 8px;
+}
+.gardener-title{
+    color: #606266;
+    font-size: 18px;
+}
+.gardener-large-title{
+  color: #606266;
+  font-size: 20px;
+}
+
+.gardener-title-nav{
+  margin-bottom: 20px;
+}
