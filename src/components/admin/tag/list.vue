@@ -12,7 +12,7 @@
             <el-input v-model="searchForm.name" placeholder="标签名"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="loadTags">查询</el-button>
+            <el-button type="primary" @click="onSubmit">查询</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -42,9 +42,8 @@
             <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
             </el-table-column>
           </el-table>
-          <p v-if="loading">加载中...</p>
-          <p v-if="noMore">没有更多了</p>
         </div>
+        <el-button type="success" @click="loadTags" style="width: 100%">{{loadMoreMessage}}</el-button>
       </el-col>
     </el-row>
   </div>
@@ -59,47 +58,42 @@ export default {
         tagType: 0,
         lastId : 0
       },
-      tagList : [
-        {
-          "id" : 1, 
-          "name" : "数据库",
-          "tagType" : 0
-        }
-      ],
+      tagList : [],
       currentRow : null,
-      loading: false,
-      count : -1
+      loadMoreMessage : "加载更多",
+      hasMore : true, 
+      pageSize : 20
     };
   },
   created(){
     this.loadTags();
   },
-  computed:{
-    noMore(){
-      return this.count === 0;
-    },
-    disabled () {
-      return this.loading || this.noMore
-    }
-  },
   methods: {
     loadTags(){
+      if(!this.hasMore){
+        return ;
+      }
       this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/list', this.searchForm
       ).then((response) => {
-        this.tagList = response.data;
-        this.count = this.tagList.length;
+        if(response.data.length < this.pageSize){
+          this.loadMoreMessage = '没有更多了';
+          this.hasMore = false;
+        }
+        if(this.searchForm.lastId === 0){
+          this.tagList = response.data;
+        }else{
+          this.tagList = this.tagList.concat(response.data);
+        }
+        this.searchForm.lastId = this.tagList[this.tagList.length - 1].id;
       }).catch((response)=>{
         
       })
     },
-    load () {
-      if(this.count === 0){
-        return ;
-      }
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 2000)
+    onSubmit(){
+      this.hasMore = true;
+      this.searchForm.lastId = 0;
+      this.loadMoreMessage = '加载更多';
+      this.loadTags();
     },
     formatterTagType(row, column){
       return this.gardener.tagType.get(row.tagType);

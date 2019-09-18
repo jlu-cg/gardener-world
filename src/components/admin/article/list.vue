@@ -33,11 +33,14 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-table ref="singleTable" :data="articleList" highlight-current-row 
-            @current-change="handleCurrentChange" style="width: 100%" border>
-          <el-table-column prop="title" label="标题">
-          </el-table-column>
-        </el-table>
+        <div style="overflow:auto">
+          <el-table ref="singleTable" :data="articleList" highlight-current-row 
+              @current-change="handleCurrentChange" style="width: 100%" border>
+            <el-table-column prop="title" label="标题">
+            </el-table-column>
+          </el-table>
+        </div>
+        <el-button type="success" @click="loadArticles" style="width: 100%">{{loadMoreMessage}}</el-button>
       </el-col>
     </el-row>
   </div>
@@ -48,12 +51,14 @@ export default {
   data() {
     return {
       searchForm : {
-        title : ''
+        title : '',
+        lastId : 0
       },
       articleList : [],
       currentRow : null,
-      loading: false,
-      count : -1
+      loadMoreMessage : "加载更多",
+      hasMore : true, 
+      pageSize : 20
     };
   },
   created(){
@@ -68,27 +73,32 @@ export default {
       }
     },
     loadArticles(){
+      if(!this.hasMore){
+        return ;
+      }
       this.axios.post(this.gardener.adminBackBaseURL + 'article/v1/list', this.searchForm
       ).then((response) => {
-        this.articleList = response.data;
-        this.count = this.articleList.length;
+        if(response.data.length < this.pageSize){
+          this.loadMoreMessage = '没有更多了';
+          this.hasMore = false;
+        }
+        if(this.searchForm.lastId === 0){
+          this.articleList = response.data;
+        }else{
+          this.articleList = this.articleList.concat(response.data);
+        }
+        this.searchForm.lastId = this.articleList[this.articleList.length - 1].id;
       }).catch((response)=>{
         
       })
-    },
-    load () {
-      if(this.count === 0){
-        return ;
-      }
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 2000)
     },
     handleCurrentChange(val){
       this.currentRow = val;
     },
     onSubmit(){
+      this.hasMore = true;
+      this.searchForm.lastId = 0;
+      this.loadMoreMessage = '加载更多';
       this.loadArticles();
     },
     articleRelate(){

@@ -21,7 +21,7 @@
       </el-header>
       <el-container>
         <el-aside width="200px">
-          <el-menu :collapse="isCollapse" router>
+          <el-menu :collapse="isCollapse" class="el-menu-vertical" router>
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-location"></i>
@@ -51,5 +51,7 @@ export default {
 </script>
 
 <style>
-
+.el-menu-vertical{
+  min-height: 600px;
+}
 </style>

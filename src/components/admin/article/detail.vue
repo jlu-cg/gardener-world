@@ -13,7 +13,8 @@
     </el-row>
     <el-row class="gardener-title-nav">
       <el-col :span="24">
-        <el-button type="primary" size="small" @click="generateArticleDocument" round>生成文章文档</el-button>
+        <el-button type="primary" size="small" @click="generateArticleDocument" round>生成文章</el-button>
+        <el-button type="primary" size="small" @click="viewArticleDocument" round>查看文章</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -225,6 +226,9 @@ export default {
       }).catch((response)=>{
         
       })
+    },
+    viewArticleDocument(){
+
     },
     handleCurrentChange(val){
       this.articleFragmentRelation.currentRow = val;

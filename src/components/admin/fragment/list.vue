@@ -32,13 +32,14 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <div class="infinite-list-wrapper" style="overflow:auto">
+        <div style="overflow:auto">
           <el-table ref="singleTable" :data="fragmentList" highlight-current-row 
             @current-change="handleCurrentChange" style="width: 100%" border>
             <el-table-column prop="title" label="标题">
             </el-table-column>
           </el-table>
         </div>
+        <el-button type="success" @click="loadFragments" style="width: 100%">{{loadMoreMessage}}</el-button>
       </el-col>
     </el-row>
   </div>
@@ -49,12 +50,14 @@ export default {
   data() {
     return {
       searchForm : {
-        title : ''
+        title : '',
+        lastId : 0
       },
       fragmentList : [],
       currentRow : null,
-      loading: false,
-      count : -1
+      loadMoreMessage : "加载更多",
+      hasMore : true, 
+      pageSize : 20
     };
   },
   created(){
@@ -69,27 +72,32 @@ export default {
       }
     },
     loadFragments(){
+      if(!this.hasMore){
+        return ;
+      }
       this.axios.post(this.gardener.adminBackBaseURL + 'fragment/v1/list', this.searchForm
       ).then((response) => {
-        this.fragmentList = response.data;
-        this.count = this.fragmentList.length;
+        if(response.data.length < this.pageSize){
+          this.loadMoreMessage = '没有更多了';
+          this.hasMore = false;
+        }
+        if(this.searchForm.lastId === 0){
+          this.fragmentList = response.data;
+        }else{
+          this.fragmentList = this.fragmentList.concat(response.data);
+        }
+        this.searchForm.lastId = this.fragmentList[this.fragmentList.length - 1].id;
       }).catch((response)=>{
         
       })
-    },
-    load () {
-      if(this.count === 0){
-        return ;
-      }
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 2000)
     },
     handleCurrentChange(val){
       this.currentRow = val;
     },
     onSubmit(){
+      this.hasMore = true;
+      this.searchForm.lastId = 0;
+      this.loadMoreMessage = '加载更多';
       this.loadFragments();
     },
     addFragment(){
