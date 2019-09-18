@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 
 import Index from '@/components/index'
-import ViewDocumentDetail from '@/components/views/article/detail'
+import ViewArticleDetail from '@/components/views/article/detail'
 
 import AdminLogin from '@/components/admin/login'
 import AdminIndex from '@/components/admin/index'
@@ -26,8 +26,8 @@ const routes = [
     component:Index
   },
   {
-    path:'/document/detail',
-    component:ViewDocumentDetail
+    path:'/article/detail',
+    component:ViewArticleDetail
   },
   {
     path:'/admin',

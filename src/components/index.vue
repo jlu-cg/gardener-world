@@ -6,7 +6,7 @@
           <el-col :span="6"><div>&nbsp;</div></el-col>
           <el-col :span="10">
             <div class="grid-content">
-              <el-input placeholder="请输入内容" v-model="searchText" clearable>
+              <el-input placeholder="请输入内容" v-model="searchForm.searchText" clearable>
                 <el-button slot="append" icon="el-icon-search">搜索</el-button>
               </el-input>
             </div>
@@ -41,13 +41,13 @@
             </el-row>
             <el-row class="gardener-content">
               <el-col :span="24">
-                <el-row class="gardener-content-data" v-for="(document, index) in documents" :key="index">
+                <el-row class="gardener-content-data" v-for="(article, index) in articles" :key="index">
                   <el-col :span="24">
                     <el-card shadow="hover">
                       <div class="gardener-small-title">
-                        <el-link type="primary" :href="'#/document/detail?documentId=' + document.id" target="_blank">{{document.title}}</el-link>
+                        <el-link type="primary" :href="'#/article/detail?articleId=' + article.id" target="_blank">{{article.title}}</el-link>
                       </div>
-                      <div class="gardener-samll-text">{{document.content}}</div>
+                      <div class="gardener-samll-text">{{article.content}}</div>
                     </el-card>
                   </el-col>
                 </el-row>
@@ -81,32 +81,20 @@ export default {
   name: 'Index',
   data(){
     return {
-      searchText : '',
+      searchForm : {
+        searchText : '',
+        lastId : 0
+      },
       tags : [{"tagName":"中间件", "id":"33"},{"tagName":"数据库", "id":"22"}],
       childTags : [{"tagName":"mysql", "id":"33"},{"tagName":"postgresql", "id":"22"}],
-      documents : [{"id":2,"title":"安装", "content":"安装步骤"}]
+      articles : [{"id":2,"title":"安装", "content":"安装步骤"}]
     }
   },
   created () {
-    var params = this.getParams()
   },
   methods: {
     viewDetail(id) {
       //this.axios.g
-    },
-    getParams() {
-      var url = window.location.href;
-      var obj = {};
-      var reg = /[?&][^?&]+=[^?&]+/g;
-      var arr = url.match(reg);
-      if (arr === null) return obj;
-      arr.forEach(function (item) {
-        var tempArr = item.substring(1).split('=');
-        var key = decodeURIComponent(tempArr[0]);
-        var val = decodeURIComponent(tempArr[1]);
-        obj[key] = val;
-      });
-      return obj;
     }
   }
 }

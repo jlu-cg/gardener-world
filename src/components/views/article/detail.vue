@@ -4,20 +4,15 @@
       <el-header height="40px">
         <el-row>
           <el-col :span="24">
-            {{document.name}}
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            {{document.summary}}
+            {{articleDocument.article.title}}
           </el-col>
         </el-row>
       </el-header>
       <el-container>
         <el-main>
           <el-collapse v-model="activeNames">
-            <el-collapse-item v-for="(component, index) in components" :key="index" :title="component.title" :name="component.pos">
-              <div v-html="component.content"></div>
+            <el-collapse-item v-for="(relation, index) in articleDocument.relations" :key="index" :title="relation.title" :name="relation.position">
+              <div v-html="relation.content"></div>
             </el-collapse-item>
           </el-collapse>
         </el-main>
@@ -29,9 +24,9 @@
                   <div class="gardener-title gardener-right-title">依赖组件</div>
                 </el-col>
               </el-row>
-              <el-row v-for="(component, index) in dependentComponents" :key="index">
+              <el-row v-for="(dependence, index) in articleDocument.dependences" :key="index">
                 <el-col :span="24">
-                  <div class="gardener-text gardener-right-text">{{component.title}}</div>
+                  <div class="gardener-text gardener-right-text">{{dependence.title}}</div>
                 </el-col>
               </el-row>
             </el-main>
@@ -44,33 +39,31 @@
 
 <script>
 export default {
-  name: 'DocumentDetail',
+  name: 'ViewArticleDetail',
   data(){
     return {
-      activeNames : ["1"],
-      document : {"id":-1, "name":"安装", "summary":"如何安装"},
-      components : [{"title":"配置环境变量", "pos":1, "content":"<div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>"}],
-      dependentComponents : [{"title":"详细说明"}]
+      articleId : -1,
+      articleDocument:{
+        article:{
+          title : ''
+        }
+      },
+      activeNames : []
     }
   },
   created () {
-    var params = this.getParams();
-    this.documentId = params['documentId'];
+    var params = this.gardener.getParams();
+    this.articleId = params['articleId'];
+    this.loadArticleDocument();
   },
   methods: {
-    getParams() {
-      var url = window.location.href;
-      var obj = {};
-      var reg = /[?&][^?&]+=[^?&]+/g;
-      var arr = url.match(reg);
-      if (arr === null) return obj;
-      arr.forEach(function (item) {
-        var tempArr = item.substring(1).split('=');
-        var key = decodeURIComponent(tempArr[0]);
-        var val = decodeURIComponent(tempArr[1]);
-        obj[key] = val;
-      });
-      return obj;
+    loadArticleDocument(){
+      this.axios.get(this.gardener.viewBackBaseURL + 'article/v1/document/detail?articleId=' + this.articleId
+      ).then((response) => {
+        this.articleDocument = response.data;
+      }).catch((response)=>{
+        
+      })
     }
   }
 }
