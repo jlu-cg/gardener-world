@@ -1,113 +1,125 @@
 <template>
   <div>
-    <el-tabs type="border-card"  v-model="activeName" @tab-click="handleTabClick">
-      <el-tab-pane label="基本信息" name="article">
-        <el-row class="gardener-title-nav">
-          <el-col :span="24">
-            <el-button type="primary" @click="generateArticleDocument" round>生成文章文档</el-button>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <div class="article-form">
-              <el-form ref="article" :model="article" label-width="120px">
-                <el-form-item label="名称">
-                  {{article.title}}
-                </el-form-item>
-              </el-form>
-            </div>
-          </el-col>
-        </el-row>
-      </el-tab-pane>
-      <el-tab-pane label="关联碎片" name="articleFragmentRelation">
-        <el-row class="gardener-title-nav">
-          <el-col :span="24">
-            <el-button type="primary" @click="addArticleFragmentRelation" round>添加</el-button>
-            <el-button type="primary" @click="moveOn" round>上移</el-button>
-            <el-button type="primary" @click="moveDown" round>下移</el-button>
-            <el-button type="primary" @click="saveOrder" round>保存顺序</el-button>
-            <el-button type="primary" @click="delArticleFragmentRelation" round>删除</el-button>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <el-table ref="singleTable" :data="articleFragmentRelation.articleFragmentRelationDetails" highlight-current-row
-                @current-change="handleCurrentChange" style="width: 100%" :row-class-name="tableRowClassName" border>
-              <el-table-column prop="title" label="碎片标题">
-              </el-table-column>
-              <el-table-column prop="position" label="位置" width="260">
-              </el-table-column>
-            </el-table>
-          </el-col>
-        </el-row>
-        <el-dialog title="添加文章关联碎片" :visible.sync="articleFragmentRelation.addArticleFragmentRelationVisible">
-          <el-form :inline="true" :model="articleFragmentRelation.searchFragmentForm" class="demo-form-inline">
-            <el-form-item label="碎片标题">
-              <el-input v-model="articleFragmentRelation.searchFragmentForm.title" placeholder="标题"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="onSearchFragmentSubmit">查询</el-button>
+    <el-row>
+      <el-col :span="24">
+        <el-page-header @back="backToList" content="详情页面">
+        </el-page-header>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-divider content-position="left">基本信息</el-divider>
+      </el-col>
+    </el-row>
+    <el-row class="gardener-title-nav">
+      <el-col :span="24">
+        <el-button type="primary" size="small" @click="generateArticleDocument" round>生成文章文档</el-button>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <div class="article-form">
+          <el-form ref="article" :model="article" label-width="120px">
+            <el-form-item label="名称">
+              {{article.title}}
             </el-form-item>
           </el-form>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-divider content-position="left">关联碎片</el-divider>
+      </el-col>
+    </el-row>
+    <el-row class="gardener-title-nav">
+      <el-col :span="24">
+        <el-button type="primary" size="small" @click="addArticleFragmentRelation" round>添加</el-button>
+        <el-button type="primary" size="small" @click="moveOn" round>上移</el-button>
+        <el-button type="primary" size="small" @click="moveDown" round>下移</el-button>
+        <el-button type="primary" size="small" @click="saveOrder" round>保存顺序</el-button>
+        <el-button type="primary" size="small" @click="delArticleFragmentRelation" round>删除</el-button>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-table ref="singleTable" :data="articleFragmentRelation.articleFragmentRelationDetails" highlight-current-row
+            @current-change="handleCurrentChange" style="width: 100%" :row-class-name="tableRowClassName" border>
+          <el-table-column prop="title" label="碎片标题">
+          </el-table-column>
+          <el-table-column prop="position" label="位置" width="260">
+          </el-table-column>
+        </el-table>
+      </el-col>
+    </el-row>
+    <el-dialog title="添加文章关联碎片" :visible.sync="articleFragmentRelation.addArticleFragmentRelationVisible">
+      <el-form :inline="true" :model="articleFragmentRelation.searchFragmentForm" class="demo-form-inline">
+        <el-form-item label="碎片标题">
+          <el-input v-model="articleFragmentRelation.searchFragmentForm.title" placeholder="标题"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSearchFragmentSubmit">查询</el-button>
+        </el-form-item>
+      </el-form>
 
-          <el-table ref="singleSelectTable" :data="articleFragmentRelation.selectFragmentList" highlight-current-row 
-              @current-change="handleSelectCurrentChange" style="width: 100%" border>
-            <el-table-column prop="title" label="碎片标题">
-            </el-table-column>
-          </el-table>
+      <el-table ref="singleSelectTable" :data="articleFragmentRelation.selectFragmentList" highlight-current-row 
+          @current-change="handleSelectCurrentChange" style="width: 100%" border>
+        <el-table-column prop="title" label="碎片标题">
+        </el-table-column>
+      </el-table>
 
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="articleFragmentRelation.addArticleFragmentRelationVisible = false">取 消</el-button>
-            <el-button type="primary" @click="selectFragment">确定</el-button>
-          </div>
-        </el-dialog>
-      </el-tab-pane>
-      <el-tab-pane label="依赖文章" name="articleArticleRelation">
-        <el-row class="gardener-title-nav">
-          <el-col :span="24">
-            <el-button type="primary" @click="articleArticleRelationAdd" round>添加</el-button>
-            <el-button type="primary" @click="articleArticleRelationMoveOn" round>上移</el-button>
-            <el-button type="primary" @click="articleArticleRelationMoveDown" round>下移</el-button>
-            <el-button type="primary" @click="articleArticleRelationSaveOrder" round>保存顺序</el-button>
-            <el-button type="primary" @click="articleArticleRelationDel" round>删除</el-button>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <el-table ref="articleArticleRelationSingleTable" :data="articleArticleRelation.articleArticleRelationDetails" highlight-current-row
-                @current-change="articleArticleRelationHandleCurrentChange" style="width: 100%" :row-class-name="articleArticleRelationTableRowClassName" border>
-              <el-table-column prop="title" label="文章标题">
-              </el-table-column>
-              <el-table-column prop="position" label="位置" width="260">
-              </el-table-column>
-            </el-table>
-          </el-col>
-        </el-row>
-        <el-dialog title="添加依赖文章" :visible.sync="articleArticleRelation.addArticleArticleRelationVisible">
-          <el-form :inline="true" :model="articleArticleRelation.searchArticleForm" class="demo-form-inline">
-            <el-form-item label="标题">
-              <el-input v-model="articleArticleRelation.searchArticleForm.title" placeholder="标题"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="onSearchArticleSubmit">查询</el-button>
-            </el-form-item>
-          </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="articleFragmentRelation.addArticleFragmentRelationVisible = false">取 消</el-button>
+        <el-button type="primary" @click="selectFragment">确定</el-button>
+      </div>
+    </el-dialog>
+      
+    <el-row>
+      <el-col :span="24">
+        <el-divider content-position="left">依赖文章</el-divider>
+      </el-col>
+    </el-row>
+    <el-row class="gardener-title-nav">
+      <el-col :span="24">
+        <el-button type="primary" size="small" @click="articleArticleRelationAdd" round>添加</el-button>
+        <el-button type="primary" size="small" @click="articleArticleRelationMoveOn" round>上移</el-button>
+        <el-button type="primary" size="small" @click="articleArticleRelationMoveDown" round>下移</el-button>
+        <el-button type="primary" size="small" @click="articleArticleRelationSaveOrder" round>保存顺序</el-button>
+        <el-button type="primary" size="small" @click="articleArticleRelationDel" round>删除</el-button>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-table ref="articleArticleRelationSingleTable" :data="articleArticleRelation.articleArticleRelationDetails" highlight-current-row
+            @current-change="articleArticleRelationHandleCurrentChange" style="width: 100%" :row-class-name="articleArticleRelationTableRowClassName" border>
+          <el-table-column prop="title" label="文章标题">
+          </el-table-column>
+          <el-table-column prop="position" label="位置" width="260">
+          </el-table-column>
+        </el-table>
+      </el-col>
+    </el-row>
+    <el-dialog title="添加依赖文章" :visible.sync="articleArticleRelation.addArticleArticleRelationVisible">
+      <el-form :inline="true" :model="articleArticleRelation.searchArticleForm" class="demo-form-inline">
+        <el-form-item label="标题">
+          <el-input v-model="articleArticleRelation.searchArticleForm.title" placeholder="标题"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSearchArticleSubmit">查询</el-button>
+        </el-form-item>
+      </el-form>
 
-          <el-table ref="articleArticleRelationSingleSelectTable" :data="articleArticleRelation.selectArticleList" highlight-current-row 
-              @current-change="articleArticleRelationHandleSelectCurrentChange" style="width: 100%" border>
-            <el-table-column prop="title" label="文章标题">
-            </el-table-column>
-          </el-table>
+      <el-table ref="articleArticleRelationSingleSelectTable" :data="articleArticleRelation.selectArticleList" highlight-current-row 
+          @current-change="articleArticleRelationHandleSelectCurrentChange" style="width: 100%" border>
+        <el-table-column prop="title" label="文章标题">
+        </el-table-column>
+      </el-table>
 
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="articleArticleRelation.addArticleArticleRelationVisible = false">取 消</el-button>
-            <el-button type="primary" @click="selectArticle">确定</el-button>
-          </div>
-        </el-dialog>
-      </el-tab-pane>
-    </el-tabs>
-    
-    
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="articleArticleRelation.addArticleArticleRelationVisible = false">取 消</el-button>
+        <el-button type="primary" @click="selectArticle">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -115,7 +127,6 @@ export default {
   name: 'AdminArticleDetail',
   data() {
     return {
-      activeName : 'article',
       article : {
         id : -1,
         tagId : -1,
@@ -123,7 +134,6 @@ export default {
         summary : ''
       },
       articleFragmentRelation:{
-        loaded : 0,
         articleFragmentRelationList : {
           articleId : -1
         },
@@ -142,7 +152,6 @@ export default {
         currentSelectRow : null
       },
       articleArticleRelation:{
-        loaded : 0,
         articleArticleRelationList : {
           articleId : -1
         },
@@ -164,6 +173,8 @@ export default {
   },
   created(){
     this.loadArticle();
+    this.loadArticleFragmentRelationDetails();
+    this.loadArticleArticleRelationDetails();
   },
   methods: {
     loadArticle(){
@@ -220,16 +231,6 @@ export default {
     },
     addArticleFragmentRelation(){
       this.articleFragmentRelation.addArticleFragmentRelationVisible = true;
-    },
-    handleTabClick(tab, event){
-      if(this.articleFragmentRelation.loaded === 0 && this.activeName === 'articleFragmentRelation'){
-        this.loadArticleFragmentRelationDetails();
-        this.articleFragmentRelation.loaded = 1;
-      }else if(this.articleArticleRelation.loaded === 0 && this.activeName === 'articleArticleRelation'){
-        this.loadArticleArticleRelationDetails();
-        this.articleArticleRelation.loaded = 1;
-      }
-
     },
     loadArticleFragmentRelationDetails(){
       this.axios.post(this.gardener.adminBackBaseURL + 'article/fragment/relation/v1/list', this.articleFragmentRelation.articleFragmentRelationList
@@ -473,7 +474,9 @@ export default {
     articleArticleRelationHandleSelectCurrentChange(val){
       this.articleArticleRelation.currentSelectRow = val;
     },
-    backToList(){},
+    backToList(){
+      window.location.href = '#/admin/article/list';
+    },
     checkRow(){
       this.$message({
         message: '请选择数据后进行操作',

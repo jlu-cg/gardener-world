@@ -22,7 +22,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 采用编译器vscode
 
-    目标
+## 目标
 1、方便记忆（类似记忆宫殿）  
 2、根据构造人员指出知识缺乏部分，指出知识空窗  
 3、碎片部分支持展开折叠便于复习  

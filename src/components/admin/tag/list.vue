@@ -14,13 +14,12 @@
     </el-row>
     <el-row class="gardener-title-nav">
       <el-col :span="24">
-        <el-button type="primary" @click="viewChildTag" round>查看子类</el-button>
-        <el-button type="primary" @click="viewParentTag" round>查看父类</el-button>
-        <el-button type="primary" @click="addTag" round>添加</el-button>
-        <el-button type="primary" @click="editTag" round>编辑</el-button>
-        <el-button type="primary" @click="delTag" round>删除</el-button>
-        <el-button type="primary" @click="articleList" round>查看文章</el-button>
-        <el-button type="primary" @click="fragmentList" round>查看碎片</el-button>
+        <el-button type="primary" size="small" @click="viewTag" round>查看</el-button>
+        <el-button type="primary" size="small" @click="addTag" round>添加</el-button>
+        <el-button type="primary" size="small" @click="editTag" round>编辑</el-button>
+        <el-button type="primary" size="small" @click="delTag" round>删除</el-button>
+        <el-button type="primary" size="small" @click="articleList" round>查看文章</el-button>
+        <el-button type="primary" size="small" @click="fragmentList" round>查看碎片</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -30,7 +29,7 @@
             @current-change="handleCurrentChange" style="width: 100%" border>
             <el-table-column prop="name" label="标签名">
             </el-table-column>
-            <el-table-column prop="tagType" :formatter="formatterClassification" label="标签类型" width="260">
+            <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
             </el-table-column>
           </el-table>
           <p v-if="loading">加载中...</p>
@@ -92,27 +91,14 @@ export default {
         this.loading = false
       }, 2000)
     },
-    formatterClassification(row, column){
-      return this.gardener.tagClassification.get(row.tagType);
+    formatterTagType(row, column){
+      return this.gardener.tagType.get(row.tagType);
     },
     handleCurrentChange(val){
       this.currentRow = val;
     },
-    viewParentTag(){
-      if(this.currentRow === null){
-        this.checkRow();
-      }else{
-        this.searchForm.parentId = 0;
-        this.loadTags();
-      }
-    },
-    viewChildTag(){
-      if(this.currentRow === null){
-        this.checkRow();
-      }else{
-        this.searchForm.parentId = this.currentRow.id;
-        this.loadTags();
-      }
+    viewTag(){
+      window.location.href = '#/admin/tag/detail?tagId=' + this.currentRow.id;
     },
     addTag(){
       window.location.href = '#/admin/tag/add';
