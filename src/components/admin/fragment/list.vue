@@ -2,6 +2,11 @@
   <div>
     <el-row>
       <el-col :span="24">
+        <el-divider content-position="left">查询</el-divider>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
         <el-form :inline="true" :model="searchForm" class="demo-form-inline">
           <el-form-item label="标题">
             <el-input v-model="searchForm.title" placeholder="标题"></el-input>
@@ -12,12 +17,17 @@
         </el-form>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-divider content-position="left">碎片列表</el-divider>
+      </el-col>
+    </el-row>
     <el-row class="gardener-title-nav">
       <el-col :span="24">
-        <el-button type="primary" @click="addFragment" round>添加</el-button>
-        <el-button type="primary" @click="editFragment" round>编辑</el-button>
-        <el-button type="primary" @click="delFragment" round>删除</el-button>
-        <el-button type="primary" @click="cancelSelect" round>取消选择</el-button>
+        <el-button type="primary" size="small" @click="addFragment" round>添加</el-button>
+        <el-button type="primary" size="small" @click="editFragment" round>编辑</el-button>
+        <el-button type="primary" size="small" @click="delFragment" round>删除</el-button>
+        <el-button type="primary" size="small" @click="cancelSelect" round>取消选择</el-button>
       </el-col>
     </el-row>
     <el-row>

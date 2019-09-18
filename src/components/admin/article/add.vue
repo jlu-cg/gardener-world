@@ -2,17 +2,25 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <div class="article-form">
-          <el-form ref="article" :model="article" label-width="120px">
-            <el-form-item label="标题">
-              <el-input v-model="article.title"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="onSubmit">保存</el-button>
-              <el-button @click="backToList">回到首页</el-button>
-            </el-form-item>
-          </el-form>
-        </div>
+        <el-page-header @back="backToList" content="修改文章">
+        </el-page-header>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-divider></el-divider>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-form ref="article" :model="article" label-width="120px">
+          <el-form-item label="标题">
+            <el-input v-model="article.title"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">保存</el-button>
+          </el-form-item>
+        </el-form>
       </el-col>
     </el-row>
   </div>

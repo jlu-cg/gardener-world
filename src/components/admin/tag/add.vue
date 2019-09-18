@@ -1,18 +1,32 @@
 <template>
-  <div class="tag-form">
-    <el-form ref="tag" :model="tag" label-width="160px">
-      <el-form-item label="标签名">
-        <el-input v-model="tag.name"></el-input>
-      </el-form-item>
-      <el-form-item label="标签分类">
-        <el-radio v-model="tag.tagType" :label="1">主话题</el-radio>
-        <el-radio v-model="tag.tagType" :label="2">非主话题</el-radio>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">修改</el-button>
-        <el-button @click="backToList">取消</el-button>
-      </el-form-item>
-    </el-form>
+  <div>
+    <el-row>
+      <el-col :span="24">
+        <el-page-header @back="backToList" content="修改标签">
+        </el-page-header>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-divider></el-divider>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-form ref="tag" :model="tag" label-width="160px">
+          <el-form-item label="标签名">
+            <el-input v-model="tag.name"></el-input>
+          </el-form-item>
+          <el-form-item label="标签分类">
+            <el-radio v-model="tag.tagType" :label="1">主话题</el-radio>
+            <el-radio v-model="tag.tagType" :label="2">非主话题</el-radio>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">保存</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>

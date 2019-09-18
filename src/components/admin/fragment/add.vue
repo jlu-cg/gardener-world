@@ -1,21 +1,37 @@
 <template>
-  <div class="fragment-form">
-    <el-form ref="fragment" :model="fragment" label-width="120px">
-      <el-form-item label="名称">
-        <el-input v-model="fragment.title"></el-input>
-      </el-form-item>
-      <el-form-item label="内容">
-        <quill-editor class="editor"
-                    v-model="fragment.content"
-                    ref="marketQuillEditor"
-                    :options="editorOption">
-        </quill-editor>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">保存</el-button>
-        <el-button @click="backToList">回到首页</el-button>
-      </el-form-item>
-    </el-form>
+  <div>
+    <el-row>
+      <el-col :span="24">
+        <el-page-header @back="backToList" content="修改碎片">
+        </el-page-header>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-divider></el-divider>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <div>
+        <el-form ref="fragment" :model="fragment" label-width="120px">
+          <el-form-item label="名称">
+            <el-input v-model="fragment.title"></el-input>
+          </el-form-item>
+          <el-form-item label="内容">
+            <quill-editor class="editor"
+                        v-model="fragment.content"
+                        ref="marketQuillEditor"
+                        :options="editorOption">
+            </quill-editor>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">保存</el-button>
+          </el-form-item>
+        </el-form>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>

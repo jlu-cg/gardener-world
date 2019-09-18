@@ -2,6 +2,11 @@
   <div>
     <el-row>
       <el-col :span="24">
+        <el-divider content-position="left">查询</el-divider>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
         <el-form :inline="true" :model="searchForm" class="demo-form-inline">
           <el-form-item label="标签名">
             <el-input v-model="searchForm.name" placeholder="标签名"></el-input>
@@ -10,6 +15,11 @@
             <el-button type="primary" @click="loadTags">查询</el-button>
           </el-form-item>
         </el-form>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-divider content-position="left">标签列表</el-divider>
       </el-col>
     </el-row>
     <el-row class="gardener-title-nav">
