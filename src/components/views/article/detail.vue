@@ -1,39 +1,42 @@
 <template>
   <div>
-    <el-container>
-      <el-header height="40px">
-        <el-row>
-          <el-col :span="24">
-            {{articleDocument.article.title}}
-          </el-col>
-        </el-row>
-      </el-header>
-      <el-container>
-        <el-main>
+    <el-row>
+      <el-col :span="24">
+        <el-card shadow="hover">
+        {{articleDocument.article.title}}
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <div class="gardener-height-8"></div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="16">
+      <el-col :span="18">
+        <el-card shadow="hover">
           <el-collapse v-model="activeNames">
             <el-collapse-item v-for="(relation, index) in articleDocument.relations" :key="index" :title="relation.title" :name="relation.position">
               <div v-html="relation.content"></div>
             </el-collapse-item>
           </el-collapse>
-        </el-main>
-        <el-aside>
-          <el-container>
-            <el-main>
-              <el-row>
-                <el-col :span="24">
-                  <div class="gardener-title gardener-right-title">依赖组件</div>
-                </el-col>
-              </el-row>
-              <el-row v-for="(dependence, index) in articleDocument.dependences" :key="index">
-                <el-col :span="24">
-                  <div class="gardener-text gardener-right-text">{{dependence.title}}</div>
-                </el-col>
-              </el-row>
-            </el-main>
-          </el-container>
-        </el-aside>
-      </el-container>
-    </el-container>
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-row>
+            <el-col :span="24">
+              <el-divider content-position="left">依赖组件</el-divider>
+            </el-col>
+          </el-row>
+          <el-row v-for="(dependence, index) in articleDocument.dependences" :key="index">
+            <el-col :span="24">
+              <div class="gardener-text gardener-right-text">{{dependence.title}}</div>
+            </el-col>
+          </el-row>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -70,10 +73,4 @@ export default {
 </script>
 
 <style>
-.gardener-right-title{
-  border-bottom: 1px #909399 solid;
-}
-.gardener-right-text{
-  margin: 8px 0px 0px 6px;
-}
 </style>

@@ -39,7 +39,7 @@
             </el-table-column>
           </el-table>
         </div>
-        <el-button type="success" @click="loadFragments" style="width: 100%">{{loadMoreMessage}}</el-button>
+        <el-button type="success" size="small" @click="loadFragments" style="width: 100%">{{loadMoreMessage}}</el-button>
       </el-col>
     </el-row>
   </div>
