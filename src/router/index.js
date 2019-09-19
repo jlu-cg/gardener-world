@@ -15,6 +15,7 @@ import AdminArticleList from '@/components/admin/article/list'
 import AdminArticleAdd from '@/components/admin/article/add'
 import AdminArticleDetail from '@/components/admin/article/detail'
 import AdminFragmentList from '@/components/admin/fragment/list'
+import AdminFragmentDetail from '@/components/admin/fragment/detail'
 import AdminFragmentAdd from '@/components/admin/fragment/add'
 
 
@@ -72,6 +73,10 @@ const routes = [
       {
         path:'fragment/add',
         component: AdminFragmentAdd
+      },
+      {
+        path:'fragment/detail',
+        component: AdminFragmentDetail
       }
     ]
   }

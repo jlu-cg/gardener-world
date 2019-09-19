@@ -125,7 +125,7 @@ export default {
       if(!this.article.hasMore){
         return ;
       }
-      this.axios.post(this.gardener.adminBackBaseURL + 'article/v1/list', this.article.searchForm
+      this.axios.post(this.gardener.adminBackBaseURL + 'article/tag/relation/v1/list', this.article.searchForm
       ).then((response) => {
         if(response.data.length < this.article.pageSize){
           this.article.loadMoreMessage = '没有更多了';

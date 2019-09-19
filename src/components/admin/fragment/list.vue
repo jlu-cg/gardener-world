@@ -27,6 +27,7 @@
         <el-button type="primary" size="small" @click="addFragment" round>添加</el-button>
         <el-button type="primary" size="small" @click="editFragment" round>编辑</el-button>
         <el-button type="primary" size="small" @click="delFragment" round>删除</el-button>
+        <el-button type="primary" size="small" @click="fragmentRelate" round>关联</el-button>
         <el-button type="primary" size="small" @click="cancelSelect" round>取消选择</el-button>
       </el-col>
     </el-row>
@@ -135,6 +136,13 @@ export default {
             message: '已取消删除'
           });          
         });
+      }
+    },
+    fragmentRelate(){
+      if(this.currentRow === null){
+        this.checkRow();
+      }else{
+        window.location.href = '#/admin/fragment/detail?fragmentId=' + this.currentRow.id;
       }
     },
     checkRow(){

@@ -27,7 +27,7 @@
         <el-button type="primary" size="small" @click="addArticle" round>添加</el-button>
         <el-button type="primary" size="small" @click="editArticle" round>编辑</el-button>
         <el-button type="primary" size="small" @click="delArticle" round>删除</el-button>
-        <el-button type="primary" size="small" @click="articleRelate" round>关联碎片</el-button>
+        <el-button type="primary" size="small" @click="articleRelate" round>关联</el-button>
         <el-button type="primary" size="small" @click="cancelSelect" round>取消选择</el-button>
       </el-col>
     </el-row>
