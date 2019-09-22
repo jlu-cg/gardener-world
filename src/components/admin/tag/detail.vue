@@ -58,7 +58,7 @@
       </el-form>
 
       <el-table ref="singleSelectTagTable" :data="addTagTagRelation.selectTagList" highlight-current-row 
-          @current-change="handleSelectTagCurrentChange" style="width: 100%" border>
+          @current-change="handleSelectTagCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
         <el-table-column prop="name" label="标签名">
         </el-table-column>
       </el-table>

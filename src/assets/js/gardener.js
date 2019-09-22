@@ -44,4 +44,13 @@ Gardener.tagRelateType = new Map([
   [2, '子标签']
 ]);
 
+
+Gardener.relationTableRowClassName = function({row, rowIndex}) {
+  row.index = rowIndex;
+  if (row.addType === 1) {
+    return 'success-row';
+  }
+  return '';
+};
+
 export default Gardener;

@@ -1,57 +1,60 @@
 <template>
-  <div>
-    <el-container>
-      <el-header>
-        <el-menu mode="horizontal">
-          <el-menu-item index="1">处理中心</el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">我的工作台</template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
-            <el-submenu index="2-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="2-4-1">选项1</el-menu-item>
-              <el-menu-item index="2-4-2">选项2</el-menu-item>
-              <el-menu-item index="2-4-3">选项3</el-menu-item>
-            </el-submenu>
-          </el-submenu>
-          <el-menu-item index="3" disabled>消息中心</el-menu-item>
-        </el-menu>
+  <el-container class="index-con">
+    <el-aside class="asideshow">
+      <LeftNav></LeftNav>
+    </el-aside>
+    <el-container class="main-con">
+      <el-header class="index-header">
+        <NavCon></NavCon>
       </el-header>
-      <el-container>
-        <el-aside width="200px">
-          <el-menu :collapse="isCollapse" class="el-menu-vertical" router>
-            <el-submenu index="1">
-              <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">知识维护</span>
-              </template>
-              <el-menu-item index="/admin/tag/list">标签</el-menu-item>
-              <el-menu-item index="/admin/article/list">文章</el-menu-item>
-              <el-menu-item index="/admin/fragment/list">碎片</el-menu-item>
-            </el-submenu>
-          </el-menu>
-        </el-aside>
-        <el-main><router-view/></el-main>
-      </el-container>
+      <el-main clss="index-main">
+        <router-view></router-view>
+      </el-main>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script>
+import NavCon from '@/components/admin/nav/navCon.vue'
+import LeftNav from '@/components/admin/nav/leftNav.vue'
+
 export default {
   name: 'AdminIndex',
   data() {
     return {
-      isCollapse: false
     };
+  },
+  // 注册组件
+  components: {
+    NavCon,
+    LeftNav
   }
 }
 </script>
 
 <style>
-.el-menu-vertical{
-  min-height: 600px;
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  border: none;
+}
+.index-con {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.aside {
+  width: 64px !important;
+  height: 100%;
+  background-color: #334157;
+  margin: 0px;
+}
+.asideshow {
+  width: 240px !important;
+  height: 100%;
+  background-color: #334157;
+  margin: 0px;
+}
+.index-header, .index-main {
+  padding: 0px;
+  border-left: 2px solid #333;
 }
 </style>

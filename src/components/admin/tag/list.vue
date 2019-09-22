@@ -102,7 +102,11 @@ export default {
       this.currentRow = val;
     },
     viewTag(){
-      window.location.href = '#/admin/tag/detail?tagId=' + this.currentRow.id;
+      if(this.currentRow === null){
+        this.checkRow();
+      }else{
+        window.location.href = '#/admin/tag/detail?tagId=' + this.currentRow.id;
+      }
     },
     addTag(){
       window.location.href = '#/admin/tag/add';

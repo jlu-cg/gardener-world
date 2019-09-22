@@ -80,7 +80,7 @@
         </el-form>
 
         <el-table ref="singleTagSelectTable" :data="articleTagRelation.selectTagList" highlight-current-row 
-            @current-change="handleTagSelectCurrentChange" style="width: 100%" border>
+            @current-change="handleTagSelectCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="name" label="标签名">
           </el-table-column>
           <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
@@ -137,7 +137,7 @@
         </el-form>
 
         <el-table ref="singleSelectTable" :data="articleFragmentRelation.selectFragmentList" highlight-current-row 
-            @current-change="handleSelectCurrentChange" style="width: 100%" border>
+            @current-change="handleSelectCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="title" label="碎片标题">
           </el-table-column>
         </el-table>
@@ -192,7 +192,7 @@
         </el-form>
 
         <el-table ref="articleArticleRelationSingleSelectTable" :data="articleArticleRelation.selectArticleList" highlight-current-row 
-            @current-change="articleArticleRelationHandleSelectCurrentChange" style="width: 100%" border>
+            @current-change="articleArticleRelationHandleSelectCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="title" label="文章标题">
           </el-table-column>
         </el-table>
@@ -231,7 +231,8 @@ export default {
         articleTagRelations : [],
         selectTagList : [],
         currentRow : null,
-        currentSelectRow : null
+        currentSelectRow : null,
+        tagIdStr : ','
       },
       articleFragmentRelation:{
         articleFragmentRelationList : {
@@ -249,7 +250,8 @@ export default {
         },
         selectFragmentList : [],
         currentRow : null,
-        currentSelectRow : null
+        currentSelectRow : null,
+        fragmentIdStr : ','
       },
       articleArticleRelation:{
         articleArticleRelationList : {
@@ -267,7 +269,8 @@ export default {
         },
         selectArticleList : [],
         currentRow : null,
-        currentSelectRow : null
+        currentSelectRow : null,
+        articleIdStr : ','
       }
     };
   },
@@ -338,6 +341,9 @@ export default {
       this.axios.post(this.gardener.adminBackBaseURL + 'article/tag/relation/v1/list', this.articleTagRelation.articleTagRelationList
       ).then((response) => {
         this.articleTagRelation.articleTagRelations = response.data;
+        for(var i = 0; i < this.articleTagRelation.articleTagRelations.length; i++){
+          this.articleTagRelation.tagIdStr += this.articleTagRelation.articleTagRelations[i].tagId + ',';
+        }
       }).catch((response)=>{
         
       })
@@ -351,6 +357,14 @@ export default {
     onSearchTagSubmit(){
       this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/list', this.articleTagRelation.searchTagForm
       ).then((response) => {
+        if(response.data === undefined){
+          return;
+        }
+        for(var i = 0; i < response.data.length; i ++){
+          if(this.articleTagRelation.tagIdStr.indexOf(',' + response.data[i].id + ',') != -1){
+            response.data[i].addType = 1;
+          }
+        }
         this.articleTagRelation.selectTagList = response.data;
       }).catch((response)=>{
         
@@ -391,6 +405,12 @@ export default {
         this.checkRow();
         return ;
       }
+
+      if(this.articleTagRelation.currentSelectRow.addType === 1){
+        this.checkRow('已添加过此关联关系');
+        return ;
+      }
+
       this.articleTagRelation.articleTagRelationForm.tagId = this.articleTagRelation.currentSelectRow.id;
       this.axios.post(this.gardener.adminBackBaseURL + 'article/tag/relation/v1/save', this.articleTagRelation.articleTagRelationForm
       ).then((response) => {
@@ -427,6 +447,9 @@ export default {
       ).then((response) => {
         if(response.data != null){
           this.articleFragmentRelation.articleFragmentRelationDetails = response.data;
+          for(var i = 0; i < this.articleFragmentRelation.articleFragmentRelationDetails.length; i++){
+            this.articleFragmentRelation.fragmentIdStr += this.articleFragmentRelation.articleFragmentRelationDetails[i].fragmentId + ',';
+          }
         }
       }).catch((response)=>{
         
@@ -510,6 +533,12 @@ export default {
         this.checkRow();
         return ;
       }
+
+      if(this.articleFragmentRelation.currentSelectRow.addType === 1){
+        this.checkRow('已添加过此关联关系');
+        return ;
+      }
+
       this.articleFragmentRelation.articleFragmentRelationDetailForm.fragmentId = this.articleFragmentRelation.currentSelectRow.id;
       this.articleFragmentRelation.articleFragmentRelationDetailForm.position = this.articleFragmentRelation.articleFragmentRelationDetails.length;
       this.axios.post(this.gardener.adminBackBaseURL + 'article/fragment/relation/v1/save', this.articleFragmentRelation.articleFragmentRelationDetailForm
@@ -534,6 +563,14 @@ export default {
     onSearchFragmentSubmit(){
       this.axios.post(this.gardener.adminBackBaseURL + 'fragment/v1/list', this.articleFragmentRelation.searchFragmentForm
       ).then((response) => {
+        if(response.data === undefined){
+          return;
+        }
+        for(var i = 0; i < response.data.length; i ++){
+          if(this.articleFragmentRelation.fragmentIdStr.indexOf(',' + response.data[i].id + ',') != -1){
+            response.data[i].addType = 1;
+          }
+        }
         this.articleFragmentRelation.selectFragmentList = response.data;
       }).catch((response)=>{
         
@@ -554,6 +591,9 @@ export default {
       this.axios.post(this.gardener.adminBackBaseURL + 'article/article/relation/v1/list', this.articleArticleRelation.articleArticleRelationList
       ).then((response) => {
         this.articleArticleRelation.articleArticleRelationDetails = response.data;
+        for(var i = 0; i < this.articleArticleRelation.articleArticleRelationDetails.length; i++){
+          this.articleArticleRelation.articleIdStr += this.articleArticleRelation.articleArticleRelationDetails[i].relateArticleId + ',';
+        }
       }).catch((response)=>{
         
       })
@@ -636,6 +676,12 @@ export default {
         this.checkRow();
         return ;
       }
+
+      if(this.articleArticleRelation.currentSelectRow.addType === 1){
+        this.checkRow('已添加过此关联关系');
+        return ;
+      }
+
       this.articleArticleRelation.articleArticleRelationDetailForm.relateArticleId = this.articleArticleRelation.currentSelectRow.id;
       if(this.articleArticleRelation.articleArticleRelationDetails === null){
         this.articleArticleRelation.articleArticleRelationDetailForm.position = 0;
@@ -664,6 +710,14 @@ export default {
     onSearchArticleSubmit(){
       this.axios.post(this.gardener.adminBackBaseURL + 'article/v1/list', this.articleArticleRelation.searchArticleForm
       ).then((response) => {
+        if(response.data === undefined){
+          return;
+        }
+        for(var i = 0; i < response.data.length; i ++){
+          if(this.articleArticleRelation.articleIdStr.indexOf(',' + response.data[i].id + ',') != -1){
+            response.data[i].addType = 1;
+          }
+        }
         this.articleArticleRelation.selectArticleList = response.data;
       }).catch((response)=>{
         
@@ -675,9 +729,12 @@ export default {
     backToList(){
       window.location.href = '#/admin/article/list';
     },
-    checkRow(){
+    checkRow(message){
+      if(message === undefined){
+        message = '请选择数据后进行操作';
+      }
       this.$message({
-        message: '请选择数据后进行操作',
+        message: message,
         type: 'warning'
       });
     }
