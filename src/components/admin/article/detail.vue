@@ -63,7 +63,7 @@
       <el-row>
         <el-col :span="24">
           <el-table ref="singleTagTable" :data="articleTagRelation.articleTagRelations" highlight-current-row
-              @current-change="handleTagCurrentChange" style="width: 100%" :row-class-name="tableRowClassName" border>
+              @current-change="handleTagCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="tableRowClassName" border>
             <el-table-column prop="name" label="标签名">
             </el-table-column>
             <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
@@ -82,7 +82,7 @@
         </el-form>
 
         <el-table ref="singleTagSelectTable" :data="articleTagRelation.selectTagList" highlight-current-row 
-            @current-change="handleTagSelectCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
+            @current-change="handleTagSelectCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="name" label="标签名">
           </el-table-column>
           <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
@@ -120,7 +120,7 @@
       <el-row>
         <el-col :span="24">
           <el-table ref="singleTable" :data="articleFragmentRelation.articleFragmentRelationDetails" highlight-current-row
-              @current-change="handleCurrentChange" style="width: 100%" :row-class-name="tableRowClassName" border>
+              @current-change="handleCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="tableRowClassName" border>
             <el-table-column prop="title" label="碎片标题">
             </el-table-column>
             <el-table-column prop="position" label="位置" width="260">
@@ -139,7 +139,7 @@
         </el-form>
 
         <el-table ref="singleSelectTable" :data="articleFragmentRelation.selectFragmentList" highlight-current-row 
-            @current-change="handleSelectCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
+            @current-change="handleSelectCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="title" label="碎片标题">
           </el-table-column>
         </el-table>
@@ -175,7 +175,7 @@
       <el-row>
         <el-col :span="24">
           <el-table ref="articleArticleRelationSingleTable" :data="articleArticleRelation.articleArticleRelationDetails" highlight-current-row
-              @current-change="articleArticleRelationHandleCurrentChange" style="width: 100%" :row-class-name="articleArticleRelationTableRowClassName" border>
+              @current-change="articleArticleRelationHandleCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="articleArticleRelationTableRowClassName" border>
             <el-table-column prop="title" label="文章标题">
             </el-table-column>
             <el-table-column prop="position" label="位置" width="260">
@@ -194,7 +194,7 @@
         </el-form>
 
         <el-table ref="articleArticleRelationSingleSelectTable" :data="articleArticleRelation.selectArticleList" highlight-current-row 
-            @current-change="articleArticleRelationHandleSelectCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
+            @current-change="articleArticleRelationHandleSelectCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="title" label="文章标题">
           </el-table-column>
         </el-table>

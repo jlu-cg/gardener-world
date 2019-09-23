@@ -148,6 +148,7 @@ export default {
 <style>
 .gardener-tag{
   margin-left: 10px;
+  cursor: pointer;
 }
 .gardener-tag-title-main{
   color: #409EFF;

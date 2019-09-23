@@ -36,7 +36,7 @@
       <el-col :span="24">
         <div class="infinite-list-wrapper" style="overflow:auto">
           <el-table ref="singleTable" :data="tagList" highlight-current-row 
-            @current-change="handleCurrentChange" style="width: 100%" border>
+            @current-change="handleCurrentChange" style="width: 100%;cursor:pointer;" border>
             <el-table-column prop="name" label="标签名">
             </el-table-column>
             <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
@@ -122,7 +122,29 @@ export default {
       if(this.currentRow === null){
         this.checkRow();
       }else{
-        alert(this.currentRow.id)
+        this.$confirm('此操作将永久删除该标签, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.axios.get(this.gardener.adminBackBaseURL + 'tag/v1/delete?tagId=' + this.currentRow.id
+          ).then((response) => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            this.hasMore = true;
+            this.tagList = [];
+            this.loadTags();
+          }).catch((response)=>{
+            
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
       }
     },
     articleList(){

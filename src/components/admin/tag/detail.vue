@@ -83,7 +83,7 @@
     <el-row>
       <el-col :span="24">
         <el-table ref="singleChildRelationTable" :data="childTagRelation.tagTagRelation.tagTagRelationList" highlight-current-row 
-          @current-change="handleChildRelationCurrentChange" style="width: 100%" border>
+          @current-change="handleChildRelationCurrentChange" style="width: 100%;cursor:pointer;" border>
           <el-table-column prop="tagName" label="标签名">
           </el-table-column>
           <el-table-column prop="relateType" :formatter="formatterRelateType" label="关联关系" width="260">
@@ -102,7 +102,7 @@
       </el-form>
 
       <el-table ref="singleChildTagTable" :data="childTagRelation.addTagTagRelation.selectTagList" highlight-current-row 
-          @current-change="handleChildTagCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
+          @current-change="handleChildTagCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
         <el-table-column prop="name" label="标签名">
         </el-table-column>
       </el-table>

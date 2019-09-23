@@ -56,7 +56,7 @@
       <el-row>
         <el-col :span="24">
           <el-table ref="singleTagTable" :data="fragmentTagRelation.fragmentTagRelations" highlight-current-row
-              @current-change="handleFragmentCurrentChange" style="width: 100%" border>
+              @current-change="handleFragmentCurrentChange" style="width: 100%;cursor:pointer;" border>
             <el-table-column prop="name" label="标签名">
             </el-table-column>
             <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
@@ -75,7 +75,7 @@
         </el-form>
 
         <el-table ref="singleTagSelectTable" :data="fragmentTagRelation.selectTagList" highlight-current-row 
-            @current-change="handleFragmentSelectCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
+            @current-change="handleFragmentSelectCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="name" label="标签名">
           </el-table-column>
           <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">

@@ -35,7 +35,7 @@
       <el-col :span="24">
         <div style="overflow:auto">
           <el-table ref="singleTable" :data="fragmentList" highlight-current-row 
-            @current-change="handleCurrentChange" style="width: 100%" border>
+            @current-change="handleCurrentChange" style="width: 100%;cursor:pointer;" border>
             <el-table-column prop="title" label="标题">
             </el-table-column>
           </el-table>
