@@ -48,7 +48,7 @@
             <el-col :span="24">
               <el-card shadow="hover">
                 <div class="gardener-small-title">
-                  <el-link type="primary" :href="'#/article/detail?articleId=' + article.id" target="_blank">{{article.title}}</el-link>
+                  <el-link type="primary" :href="'#/article/detail?articleId=' + article.articleId" target="_blank">{{article.title}}</el-link>
                 </div>
               </el-card>
               <div class="gardener-height-6"></div>
