@@ -23,8 +23,10 @@
       </el-row>
       <el-row class="gardener-title-nav">
         <el-col :span="24">
-          <el-button type="primary" size="small" @click="generateArticleDocument" round>生成文章</el-button>
-          <el-button type="primary" size="small" @click="viewArticleDocument" round>查看文章</el-button>
+          <el-button v-if="article.status === 2" type="primary" size="small" @click="generateArticleDocument" round>发布文章</el-button>
+          <el-button v-if="article.status === 1" type="primary" size="small" @click="generateArticleDocument" round>重新发布文章</el-button>
+          <el-button v-if="article.status === 1" type="primary" size="small" @click="cancelArticleDocument" round>取消发布文章</el-button>
+          <el-button v-if="article.status === 1" type="primary" size="small" @click="viewArticleDocument" round>查看文章</el-button>
         </el-col>
       </el-row>
       <el-row>
@@ -214,7 +216,7 @@ export default {
         id : -1,
         tagId : -1,
         title : '',
-        summary : ''
+        status : 2
       },
       articleTagRelation:{
         articleTagRelationList : {
@@ -319,12 +321,35 @@ export default {
       }).then((response) => {
         if(response.data === 1){
           this.$message({
-            message: '生成文章文档成功',
+            message: '发布文章文档成功',
             type: 'success'
           });
+          this.article.status = 1;
         }else{
           this.$message({
-            message: '生成文章文档失败',
+            message: '发布文章文档失败',
+            type: 'error'
+          });
+        }
+      }).catch((response)=>{
+        
+      })
+    },
+    cancelArticleDocument(){
+      this.axios.get(this.gardener.adminBackBaseURL + 'article/v1/document/cancel', {
+        params: {
+          articleId : this.article.id
+        }
+      }).then((response) => {
+        if(response.data === 1){
+          this.$message({
+            message: '取消发布文章文档成功',
+            type: 'success'
+          });
+          this.article.status = 2;
+        }else{
+          this.$message({
+            message: '取消发布文章文档失败',
             type: 'error'
           });
         }

@@ -32,6 +32,16 @@ Gardener.getParamInt = function(paramVal, defaultVal){
   return parseInt(paramVal)
 }
 
+Gardener.relationTableRowClassName = function({row, rowIndex}) {
+  row.index = rowIndex;
+  if (row.addType === 1) {
+    return 'success-row';
+  }
+  return '';
+};
+
+//----------------------------------- 码表相关 ------------------------------------------------
+
 Gardener.tagType = new Map([
   [0, ''],
   [1, '主话题'],
@@ -44,13 +54,10 @@ Gardener.tagRelateType = new Map([
   [2, '子标签']
 ]);
 
-
-Gardener.relationTableRowClassName = function({row, rowIndex}) {
-  row.index = rowIndex;
-  if (row.addType === 1) {
-    return 'success-row';
-  }
-  return '';
-};
+Gardener.articleStatus = new Map([
+  [0, ''],
+  [1, '已发布'],
+  [2, '未发布']
+]);
 
 export default Gardener;

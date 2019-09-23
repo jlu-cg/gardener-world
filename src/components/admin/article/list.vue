@@ -38,6 +38,8 @@
               @current-change="handleCurrentChange" style="width: 100%" border>
             <el-table-column prop="title" label="标题">
             </el-table-column>
+            <el-table-column prop="status" :formatter="formatterArticleStatusType" label="发布状态" width="260">
+            </el-table-column>
           </el-table>
         </div>
         <el-button type="success" size="small" @click="loadArticles" style="width: 100%">{{loadMoreMessage}}</el-button>
@@ -91,6 +93,9 @@ export default {
       }).catch((response)=>{
         
       })
+    },
+    formatterArticleStatusType(row, column){
+      return this.gardener.articleStatus.get(row.status);
     },
     handleCurrentChange(val){
       this.currentRow = val;
