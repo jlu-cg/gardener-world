@@ -104,6 +104,7 @@ export default {
       this.hasMore = true;
       this.searchForm.lastId = 0;
       this.loadMoreMessage = '加载更多';
+      this.articleList = [];
       this.loadArticles();
     },
     articleRelate(){
@@ -138,6 +139,10 @@ export default {
               type: 'success',
               message: '删除成功!'
             });
+            this.hasMore = true;
+            this.searchForm.lastId = 0;
+            this.loadMoreMessage = '加载更多';
+            this.articleList = [];
             this.loadArticles();
           }).catch((response)=>{
             

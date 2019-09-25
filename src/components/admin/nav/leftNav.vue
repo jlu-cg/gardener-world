@@ -5,9 +5,15 @@
     <el-submenu index="1">
       <template slot="title">
         <i class="el-icon-location"></i>
-        <span slot="title">知识维护</span>
+        <span slot="title">标签</span>
       </template>
       <el-menu-item index="/admin/tag/list">标签</el-menu-item>
+    </el-submenu>
+    <el-submenu index="2">
+      <template slot="title">
+        <i class="el-icon-location"></i>
+        <span slot="title">知识</span>
+      </template>
       <el-menu-item index="/admin/article/list">文章</el-menu-item>
       <el-menu-item index="/admin/fragment/list">碎片</el-menu-item>
     </el-submenu>

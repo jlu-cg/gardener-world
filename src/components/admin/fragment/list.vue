@@ -99,6 +99,7 @@ export default {
       this.hasMore = true;
       this.searchForm.lastId = 0;
       this.loadMoreMessage = '加载更多';
+      this.fragmentList = [];
       this.loadFragments();
     },
     addFragment(){
@@ -126,6 +127,10 @@ export default {
               type: 'success',
               message: '删除成功!'
             });
+            this.hasMore = true;
+            this.searchForm.lastId = 0;
+            this.loadMoreMessage = '加载更多';
+            this.fragmentList = [];
             this.loadFragments();
           }).catch((response)=>{
             

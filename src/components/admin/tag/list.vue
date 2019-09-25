@@ -93,6 +93,7 @@ export default {
       this.hasMore = true;
       this.searchForm.lastId = 0;
       this.loadMoreMessage = '加载更多';
+      this.tagList = [];
       this.loadTags();
     },
     formatterTagType(row, column){
@@ -134,6 +135,8 @@ export default {
               message: '删除成功!'
             });
             this.hasMore = true;
+            this.searchForm.lastId = 0;
+            this.loadMoreMessage = '加载更多';
             this.tagList = [];
             this.loadTags();
           }).catch((response)=>{
