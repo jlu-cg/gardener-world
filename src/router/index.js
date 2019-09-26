@@ -11,9 +11,14 @@ import AdminHome from '@/components/admin/home'
 import AdminTagList from '@/components/admin/tag/list'
 import AdminTagAdd from '@/components/admin/tag/add'
 import AdminTagDetail from '@/components/admin/tag/detail'
+
+import AdminEnvironmentLabelList from '@/components/admin/environment/list'
+import AdminEnvironmentLabelAdd from '@/components/admin/environment/add'
+
 import AdminArticleList from '@/components/admin/article/list'
 import AdminArticleAdd from '@/components/admin/article/add'
 import AdminArticleDetail from '@/components/admin/article/detail'
+
 import AdminFragmentList from '@/components/admin/fragment/list'
 import AdminFragmentDetail from '@/components/admin/fragment/detail'
 import AdminFragmentAdd from '@/components/admin/fragment/add'
@@ -43,16 +48,24 @@ const routes = [
         component: AdminLogin
       },
       {
-        path:'tag/add',
-        component: AdminTagAdd
-      },
-      {
         path:'tag/list',
         component: AdminTagList
       },
       {
+        path:'tag/add',
+        component: AdminTagAdd
+      },
+      {
         path:'tag/detail',
         component: AdminTagDetail
+      },
+      {
+        path:'environment/label/list',
+        component: AdminEnvironmentLabelList
+      },
+      {
+        path:'environment/label/add',
+        component: AdminEnvironmentLabelAdd
       },
       {
         path:'article/list',

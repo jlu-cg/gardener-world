@@ -80,7 +80,7 @@ export default {
       }
       this.axios.post(this.gardener.adminBackBaseURL + 'article/v1/list', this.searchForm
       ).then((response) => {
-        if(response.data.length < this.pageSize){
+        if(response.data === null || response.data.length < this.pageSize){
           this.loadMoreMessage = '没有更多了';
           this.hasMore = false;
         }

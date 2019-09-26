@@ -92,7 +92,7 @@ export default {
         
       })
     },
-    onSubmit() {this.axios.post('http://localhost:38080/fragment/v1/save', this.fragment)
+    onSubmit() {this.axios.post(this.gardener.adminBackBaseURL + 'fragment/v1/save', this.fragment)
       .then((response) => {
         if(response.data == 0){
           this.$alert('添加成功', '添加提示', {

@@ -8,6 +8,7 @@
         <span slot="title">标签</span>
       </template>
       <el-menu-item index="/admin/tag/list">标签</el-menu-item>
+      <el-menu-item index="/admin/environment/label/list">环境</el-menu-item>
     </el-submenu>
     <el-submenu index="2">
       <template slot="title">
