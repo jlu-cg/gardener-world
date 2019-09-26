@@ -15,6 +15,10 @@ import AdminTagDetail from '@/components/admin/tag/detail'
 import AdminEnvironmentLabelList from '@/components/admin/environment/list'
 import AdminEnvironmentLabelAdd from '@/components/admin/environment/add'
 
+import AdminDetailIntroductionList from '@/components/admin/introduction/list'
+import AdminDetailIntroductionAdd from '@/components/admin/introduction/add'
+import AdminDetailIntroductionDetail from '@/components/admin/introduction/detail'
+
 import AdminArticleList from '@/components/admin/article/list'
 import AdminArticleAdd from '@/components/admin/article/add'
 import AdminArticleDetail from '@/components/admin/article/detail'
@@ -66,6 +70,18 @@ const routes = [
       {
         path:'environment/label/add',
         component: AdminEnvironmentLabelAdd
+      },
+      {
+        path:'detail/introduction/list',
+        component: AdminDetailIntroductionList
+      },
+      {
+        path:'detail/introduction/add',
+        component: AdminDetailIntroductionAdd
+      },
+      {
+        path:'detail/introduction/detail',
+        component: AdminDetailIntroductionDetail
       },
       {
         path:'article/list',
