@@ -3,7 +3,7 @@
     <el-card shadow="never">
     <el-row>
       <el-col :span="24">
-        <el-page-header @back="backToList" content="详情页面">
+        <el-page-header @back="backToList" content="详细介绍页面">
         </el-page-header>
       </el-col>
     </el-row>
@@ -64,7 +64,7 @@
           </el-table>
         </el-col>
       </el-row>
-      <el-dialog title="添加详细介绍关联环境标签" :visible.sync="introductionEnvironmentRelation.addintroductionEnvironmentRelationListVisible">
+      <el-dialog title="添加关联环境标签" :visible.sync="introductionEnvironmentRelation.addIntroductionEnvironmentRelationListVisible">
         <el-form :inline="true" :model="introductionEnvironmentRelation.searchEnvironmentLabelForm" class="demo-form-inline">
           <el-form-item label="环境">
             <el-input v-model="introductionEnvironmentRelation.searchEnvironmentLabelForm.name" placeholder="环境"></el-input>
@@ -83,7 +83,7 @@
         </el-table>
 
         <div slot="footer" class="dialog-footer">
-          <el-button @click="introductionEnvironmentRelation.addintroductionEnvironmentRelationListVisible = false">取 消</el-button>
+          <el-button @click="introductionEnvironmentRelation.addIntroductionEnvironmentRelationListVisible = false">取 消</el-button>
           <el-button type="primary" @click="selectEnvironmentLabel">确定</el-button>
         </div>
       </el-dialog>
@@ -187,7 +187,7 @@ export default {
       })
       this.introductionEnvironmentRelation.addIntroductionEnvironmentRelationListVisible = false;
     },
-    onSearchTagSubmit(){
+    onSearchEnvironmentLabelSubmit(){
       this.axios.post(this.gardener.adminBackBaseURL + 'environment/label/v1/list', this.introductionEnvironmentRelation.searchEnvironmentLabelForm
       ).then((response) => {
         this.introductionEnvironmentRelation.selectEnvironmentLabelList = response.data;

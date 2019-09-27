@@ -17,6 +17,14 @@
       </template>
       <el-menu-item index="/admin/article/list">文章</el-menu-item>
       <el-menu-item index="/admin/fragment/list">碎片</el-menu-item>
+      <el-menu-item index="/admin/detail/introduction/list">详细介绍</el-menu-item>
+    </el-submenu>
+    <el-submenu index="3">
+      <template slot="title">
+        <i class="el-icon-location"></i>
+        <span slot="title">问题</span>
+      </template>
+      <el-menu-item index="/admin/article/list">问题</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
