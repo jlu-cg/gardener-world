@@ -24,7 +24,8 @@
         <i class="el-icon-location"></i>
         <span slot="title">问题</span>
       </template>
-      <el-menu-item index="/admin/article/list">问题</el-menu-item>
+      <el-menu-item index="/admin/question/list">问题</el-menu-item>
+      <el-menu-item index="/admin/question/solution/list">问题解决</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>

@@ -27,6 +27,12 @@ import AdminFragmentList from '@/components/admin/fragment/list'
 import AdminFragmentDetail from '@/components/admin/fragment/detail'
 import AdminFragmentAdd from '@/components/admin/fragment/add'
 
+import AdminQuestionList from '@/components/admin/question/list'
+import AdminQuestionAdd from '@/components/admin/question/add'
+import AdminQuestionDetail from '@/components/admin/question/detail'
+
+import AdminQuestionSolutionList from '@/components/admin/question/solution/list'
+import AdminQuestionSolutionAdd from '@/components/admin/question/solution/add'
 
 Vue.use(Router)
 
@@ -106,6 +112,26 @@ const routes = [
       {
         path:'fragment/detail',
         component: AdminFragmentDetail
+      },
+      {
+        path:'question/list',
+        component: AdminQuestionList
+      },
+      {
+        path:'question/add',
+        component: AdminQuestionAdd
+      },
+      {
+        path:'question/detail',
+        component: AdminQuestionDetail
+      },
+      {
+        path:'question/solution/list',
+        component: AdminQuestionSolutionList
+      },
+      {
+        path:'question/solution/add',
+        component: AdminQuestionSolutionAdd
       }
     ]
   }

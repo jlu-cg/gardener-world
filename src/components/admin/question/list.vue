@@ -19,42 +19,43 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-divider content-position="left">详细介绍列表</el-divider>
+        <el-divider content-position="left">问题列表</el-divider>
       </el-col>
     </el-row>
     <el-row class="gardener-title-nav">
       <el-col :span="24">
-        <el-button type="primary" size="small" @click="addDetailIntroduction" round>添加</el-button>
-        <el-button type="primary" size="small" @click="editDetailIntroduction" round>编辑</el-button>
-        <el-button type="primary" size="small" @click="delDetailIntroduction" round>删除</el-button>
-        <el-button type="primary" size="small" @click="detailIntroductionRelate" round>关联</el-button>
+        <el-button type="primary" size="small" @click="addQuestion" round>添加</el-button>
+        <el-button type="primary" size="small" @click="editQuestion" round>编辑</el-button>
+        <el-button type="primary" size="small" @click="delQuestion" round>删除</el-button>
+        <el-button type="primary" size="small" @click="questionRelate" round>关联</el-button>
         <el-button type="primary" size="small" @click="cancelSelect" round>取消选择</el-button>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
         <div style="overflow:auto">
-          <el-table ref="singleTable" :data="detailIntroductionList" highlight-current-row 
+          <el-table ref="singleTable" :data="questionList" highlight-current-row 
             @current-change="handleCurrentChange" style="width: 100%;cursor:pointer;" border>
             <el-table-column prop="summary" label="简介">
             </el-table-column>
           </el-table>
         </div>
-        <el-button type="success" size="small" @click="loadDetailIntroductions" style="width: 100%">{{loadMoreMessage}}</el-button>
+        <el-button type="success" size="small" @click="loadQuestions" style="width: 100%">{{loadMoreMessage}}</el-button>
       </el-col>
     </el-row>
   </div>
 </template>
+
 <script>
 export default {
-  name: 'AdminDetailIntroductionList',
+  name: 'AdminQuestionList',
   data() {
     return {
       searchForm : {
         summary : '',
         lastId : 0
       },
-      detailIntroductionList : [],
+      questionList : [],
       currentRow : null,
       loadMoreMessage : "加载更多",
       hasMore : true, 
@@ -62,7 +63,7 @@ export default {
     };
   },
   created(){
-    this.loadDetailIntroductions();
+    this.loadQuestions();
   },
   methods:{
     cancelSelect(row){
@@ -72,22 +73,22 @@ export default {
         this.$refs.singleTable.setCurrentRow(row);
       }
     },
-    loadDetailIntroductions(){
+    loadQuestions(){
       if(!this.hasMore){
         return ;
       }
-      this.axios.post(this.gardener.adminBackBaseURL + 'detail/introduction/v1/list', this.searchForm
+      this.axios.post(this.gardener.adminBackBaseURL + 'question/v1/list', this.searchForm
       ).then((response) => {
         if(response.data === null || response.data.length < this.pageSize){
           this.loadMoreMessage = '没有更多了';
           this.hasMore = false;
         }
         if(this.searchForm.lastId === 0){
-          this.detailIntroductionList = response.data;
+          this.questionList = response.data;
         }else{
-          this.detailIntroductionList = this.detailIntroductionList.concat(response.data);
+          this.questionList = this.questionList.concat(response.data);
         }
-        this.searchForm.lastId = this.detailIntroductionList[this.detailIntroductionList.length - 1].id;
+        this.searchForm.lastId = this.questionList[this.questionList.length - 1].id;
       }).catch((response)=>{
         
       })
@@ -99,29 +100,29 @@ export default {
       this.hasMore = true;
       this.searchForm.lastId = 0;
       this.loadMoreMessage = '加载更多';
-      this.detailIntroductionList = [];
-      this.loadDetailIntroductions();
+      this.questionList = [];
+      this.loadQuestions();
     },
-    addDetailIntroduction(){
-      window.location.href = '#/admin/detail/introduction/add';
+    addQuestion(){
+      window.location.href = '#/admin/question/add';
     },
-    editDetailIntroduction(){
+    editQuestion(){
       if(this.currentRow === null){
         this.checkRow();
       }else{
-        window.location.href = '#/admin/detail/introduction/add?detailIntroductionId=' + this.currentRow.id;
+        window.location.href = '#/admin/question/add?questionId=' + this.currentRow.id;
       }
     },
-    delDetailIntroduction(){
+    delQuestion(){
       if(this.currentRow === null){
         this.checkRow();
       }else{
-        this.$confirm('此操作将永久删除该详细介绍, 是否继续?', '提示', {
+        this.$confirm('此操作将永久删除该问题, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.axios.get(this.gardener.adminBackBaseURL + 'detail/introduction/v1/delete?detailIntroductionId=' + this.currentRow.id
+          this.axios.get(this.gardener.adminBackBaseURL + 'question/v1/delete?questionId=' + this.currentRow.id
           ).then((response) => {
             this.$message({
               type: 'success',
@@ -130,8 +131,8 @@ export default {
             this.hasMore = true;
             this.searchForm.lastId = 0;
             this.loadMoreMessage = '加载更多';
-            this.detailIntroductionList = [];
-            this.loadFragments();
+            this.questionList = [];
+            this.loadQuestions();
           }).catch((response)=>{
             
           })
@@ -143,11 +144,11 @@ export default {
         });
       }
     },
-    detailIntroductionRelate(){
+    questionRelate(){
       if(this.currentRow === null){
         this.checkRow();
       }else{
-        window.location.href = '#/admin/detail/introduction/detail?detailIntroductionId=' + this.currentRow.id;
+        window.location.href = '#/admin/question/detail?questionId=' + this.currentRow.id;
       }
     },
     checkRow(){

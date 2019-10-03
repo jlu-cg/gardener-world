@@ -60,4 +60,10 @@ Gardener.articleStatus = new Map([
   [2, '未发布']
 ]);
 
+Gardener.solutionType = new Map([
+  [0, ''],
+  [1, '重要答案'],
+  [2, '可能答案']
+]);
+
 export default Gardener;
