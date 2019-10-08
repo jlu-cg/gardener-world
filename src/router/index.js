@@ -34,6 +34,10 @@ import AdminQuestionDetail from '@/components/admin/question/detail'
 import AdminQuestionSolutionList from '@/components/admin/question/solution/list'
 import AdminQuestionSolutionAdd from '@/components/admin/question/solution/add'
 
+import AdminUserInfoList from '@/components/admin/user/infoList'
+import AdminUserInfoAdd from '@/components/admin/user/infoAdd'
+import AdminUserInfoDetail from '@/components/admin/user/infoDetail'
+
 Vue.use(Router)
 
 const routes = [
@@ -132,6 +136,18 @@ const routes = [
       {
         path:'question/solution/add',
         component: AdminQuestionSolutionAdd
+      },
+      {
+        path:'user/info/list',
+        component: AdminUserInfoList
+      },
+      {
+        path:'user/info/add',
+        component: AdminUserInfoAdd
+      },
+      {
+        path:'user/info/detail',
+        component: AdminUserInfoDetail
       }
     ]
   }

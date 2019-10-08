@@ -66,4 +66,10 @@ Gardener.solutionType = new Map([
   [2, '可能答案']
 ]);
 
+Gardener.userInfoStatus = new Map([
+  [0, ''],
+  [1, '有效'],
+  [2, '无效']
+]);
+
 export default Gardener;
