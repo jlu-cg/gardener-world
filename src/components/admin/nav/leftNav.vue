@@ -33,9 +33,8 @@
         <span slot="title">用户</span>
       </template>
       <el-menu-item index="/admin/user/info/list">用户管理</el-menu-item>
-      <el-menu-item index="/admin/question/solution/list">角色管理</el-menu-item>
-      <el-menu-item index="/admin/question/solution/list">权限管理</el-menu-item>
-      <el-menu-item index="/admin/question/solution/list">当前用户信息管理</el-menu-item>
+      <el-menu-item index="/admin/user/role/list">角色管理</el-menu-item>
+      <el-menu-item index="/admin/user/privilege/list">权限管理</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>

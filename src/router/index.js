@@ -37,6 +37,11 @@ import AdminQuestionSolutionAdd from '@/components/admin/question/solution/add'
 import AdminUserInfoList from '@/components/admin/user/infoList'
 import AdminUserInfoAdd from '@/components/admin/user/infoAdd'
 import AdminUserInfoDetail from '@/components/admin/user/infoDetail'
+import AdminUserRoleList from '@/components/admin/user/roleList'
+import AdminUserRoleAdd from '@/components/admin/user/roleAdd'
+import AdminUserRoleDetail from '@/components/admin/user/roleDetail'
+import AdminUserPrivilegeList from '@/components/admin/user/privilegeList'
+import AdminUserPrivilegeAdd from '@/components/admin/user/privilegeAdd'
 
 Vue.use(Router)
 
@@ -148,6 +153,26 @@ const routes = [
       {
         path:'user/info/detail',
         component: AdminUserInfoDetail
+      },
+      {
+        path:'user/role/list',
+        component: AdminUserRoleList
+      },
+      {
+        path:'user/role/add',
+        component: AdminUserRoleAdd
+      },
+      {
+        path:'user/role/detail',
+        component: AdminUserRoleDetail
+      },
+      {
+        path:'user/privilege/list',
+        component: AdminUserPrivilegeList
+      },
+      {
+        path:'user/privilege/add',
+        component: AdminUserPrivilegeAdd
       }
     ]
   }

@@ -72,4 +72,16 @@ Gardener.userInfoStatus = new Map([
   [2, '无效']
 ]);
 
+Gardener.userRoleStatus = new Map([
+  [0, ''],
+  [1, '有效'],
+  [2, '无效']
+]);
+
+Gardener.userPrivilegeStatus = new Map([
+  [0, ''],
+  [1, '有效'],
+  [2, '无效']
+]);
+
 export default Gardener;

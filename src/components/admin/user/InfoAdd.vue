@@ -73,7 +73,7 @@ export default {
           userInfoId : userInfoId
         }
       }).then((response) => {
-        this.tag = response.data;
+        this.userInfo = response.data;
       }).catch((response)=>{
         
       })
@@ -101,9 +101,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.tag-form{
-    width: 540px;
-}
-</style>

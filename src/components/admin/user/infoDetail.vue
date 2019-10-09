@@ -47,34 +47,34 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-table ref="singleParentRelationTable" :data="userRoleRelation.tagTagRelation.tagTagRelationList" highlight-current-row 
-          @current-change="handleParentRelationCurrentChange" style="width: 100%" border>
-          <el-table-column prop="tagName" label="标签名">
+        <el-table ref="singleRelationTable" :data="userRoleRelation.userRoleRelation.userRoleRelationList" highlight-current-row 
+          @current-change="handleRelationCurrentChange" style="width: 100%" border>
+          <el-table-column prop="roleName" label="角色">
           </el-table-column>
-          <el-table-column prop="relateType" :formatter="formatterUserInfoStatus" label="关联关系" width="260">
+          <el-table-column prop="status" :formatter="formatterUserRoleStatus" label="状态" width="260">
           </el-table-column>
         </el-table>
       </el-col>
     </el-row>
-    <el-dialog title="添加关联标签" :visible.sync="parentTagRelation.addTagTagRelation.addTagTagRelationVisible">
-      <el-form :inline="true" :model="parentTagRelation.addTagTagRelation.searchTagForm" class="demo-form-inline">
-        <el-form-item label="标签名">
-          <el-input v-model="parentTagRelation.addTagTagRelation.searchTagForm.name" placeholder="标签名"></el-input>
+    <el-dialog title="添加关联角色" :visible.sync="userRoleRelation.addUserRoleRelation.addUserRoleRelationVisible">
+      <el-form :inline="true" :model="userRoleRelation.addUserRoleRelation.searchRoleForm" class="demo-form-inline">
+        <el-form-item label="角色">
+          <el-input v-model="userRoleRelation.addUserRoleRelation.searchRoleForm.name" placeholder="角色"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSearchParentTagSubmit">查询</el-button>
+          <el-button type="primary" @click="onSearchRoleSubmit">查询</el-button>
         </el-form-item>
       </el-form>
 
-      <el-table ref="singleParentTagTable" :data="parentTagRelation.addTagTagRelation.selectTagList" highlight-current-row 
-          @current-change="handleParentTagCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
+      <el-table ref="singleRoleTable" :data="userRoleRelation.addUserRoleRelation.selectRoleList" highlight-current-row 
+          @current-change="handleRoleCurrentChange" style="width: 100%" :row-class-name="gardener.relationTableRowClassName" border>
         <el-table-column prop="name" label="标签名">
         </el-table-column>
       </el-table>
 
       <div slot="footer" class="dialog-footer">
-        <el-button @click="parentTagRelation.tagTagRelation.addTagTagRelationVisible = false">取 消</el-button>
-        <el-button type="primary" @click="selectParentTagRelation">确定</el-button>
+        <el-button @click="userRoleRelation.addUserRoleRelation.addUserRoleRelationVisible = false">取 消</el-button>
+        <el-button type="primary" @click="selectUserRoleRelation">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -96,23 +96,24 @@ export default {
       userRoleRelation : {
         userRoleRelation : {
           userRoleRelationList : [],
-          tagRelation:{
-            tagId : -1,
-            relateType : 1
+          roleRelation:{
+            userId : -1,
+            roleId : -1
           },
           currentRow : null
         },
-        adduserRoleRelation : {
-          adduserRoleRelationVisible : false,
-          selectTagList : [],
-          searchTagForm : {
+        addUserRoleRelation : {
+          addUserRoleRelationVisible : false,
+          selectRoleList : [],
+          searchRoleForm : {
             name : ''
           },
-          tagRelation:{
-            relateType : 1
+          roleRelation:{
+            userId : -1,
+            roleId : -1
           },
           currentRow : null,
-          tagIdStr : ','
+          roleIdStr : ','
         }
       }
     };
@@ -124,8 +125,8 @@ export default {
       return ;
     }
     this.userInfo.id = userInfoId;
-    this.userRoleRelation.tagTagRelation.tagRelation.tagId = userInfoId;
-    this.userRoleRelation.addTagTagRelation.tagRelation.tagId = userInfoId;
+    this.userRoleRelation.userRoleRelation.roleRelation.userId = userInfoId;
+    this.userRoleRelation.addUserRoleRelation.roleRelation.userId = userInfoId;
     this.loadUserInfo();
     this.loadUserRoleRelation();
   },
@@ -143,34 +144,34 @@ export default {
     },
     //------------------------------------------ 用户角色 ------------------------------------------
     loadUserRoleRelation(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'tag/tag/relation/v1/list', this.parentTagRelation.tagTagRelation.tagRelation).then((response) => {
-        this.parentTagRelation.tagTagRelation.tagTagRelationList = response.data;
-        for(var i = 0; i < this.parentTagRelation.tagTagRelation.tagTagRelationList.length; i++){
-          this.parentTagRelation.addTagTagRelation.tagIdStr += this.parentTagRelation.tagTagRelation.tagTagRelationList[i].relateTagId + ',';
+      this.axios.post(this.gardener.adminBackBaseURL + 'user/role/relation/v1/list', this.userRoleRelation.userRoleRelation.roleRelation).then((response) => {
+        this.userRoleRelation.userRoleRelation.userRoleRelationList = response.data;
+        for(var i = 0; i < this.userRoleRelation.userRoleRelation.userRoleRelationList.length; i++){
+          this.userRoleRelation.addUserRoleRelation.roleIdStr += this.userRoleRelation.userRoleRelation.userRoleRelationList[i].roleId + ',';
         }
       }).catch((response)=>{
         
       })
     },
-    addParentRelation(){
-      this.parentTagRelation.addTagTagRelation.addTagTagRelationVisible = true;
+    addUserRoleRelation(){
+      this.userRoleRelation.addUserRoleRelation.addUserRoleRelationVisible = true;
     },
-    delParentRelation(){
-      if(this.parentTagRelation.tagTagRelation.currentRow === null){
+    delUserRoleRelation(){
+      if(this.userRoleRelation.userRoleRelation.currentRow === null){
         this.checkRow();
       }else{
-        this.$confirm('此操作将永久删除该关联, 是否继续?', '提示', {
+        this.$confirm('此操作将永久删除该关联角色, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.axios.get(this.gardener.adminBackBaseURL + 'tag/tag/relation/v1/delete?tagTagRelationId=' + this.parentTagRelation.tagTagRelation.currentRow.id
+          this.axios.get(this.gardener.adminBackBaseURL + 'user/role/relation/v1/delete?userRoleRelationId=' + this.userRoleRelation.userRoleRelation.currentRow.id
           ).then((response) => {
             this.$message({
               type: 'success',
               message: '删除成功!'
             });
-            this.loadParnetTagTagRelation();
+            this.loadUserRoleRelation();
           }).catch((response)=>{
             
           })
@@ -182,48 +183,48 @@ export default {
         });
       }
     },
-    selectParentTagRelation(){
-      if(this.parentTagRelation.addTagTagRelation.currentRow === null){
+    selectUserRoleRelation(){
+      if(this.userRoleRelation.addUserRoleRelation.currentRow === null){
         this.checkRow();
       }else{
-        this.parentTagRelation.addTagTagRelation.tagRelation.relateTagId = this.parentTagRelation.addTagTagRelation.currentRow.id;
-        this.axios.post(this.gardener.adminBackBaseURL + 'tag/tag/relation/v1/save', this.parentTagRelation.addTagTagRelation.tagRelation
+        this.userRoleRelation.addUserRoleRelation.roleRelation.roleId = this.userRoleRelation.addUserRoleRelation.currentRow.id;
+        this.axios.post(this.gardener.adminBackBaseURL + 'user/role/relation/v1/save', this.userRoleRelation.addUserRoleRelation.roleRelation
         ).then((response) => {
           this.$message({
             message: '添加标签关联关系成功',
             type: 'success'
           });
-          this.parentTagRelation.addTagTagRelation.addTagTagRelationVisible = false;
-          this.loadParnetTagTagRelation();
+          this.userRoleRelation.addUserRoleRelation.addUserRoleRelationVisible = false;
+          this.loadUserRoleRelation();
         }).catch((response)=>{
           
         })
       }
     },
-    onSearchParentTagSubmit(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/list', this.parentTagRelation.addTagTagRelation.searchTagForm
+    onSearchRoleSubmit(){
+      this.axios.post(this.gardener.adminBackBaseURL + 'user/role/v1/list', this.userRoleRelation.addUserRoleRelation.searchRoleForm
       ).then((response) => {
         if(response.data === undefined){
           return;
         }
         for(var i = 0; i < response.data.length; i ++){
-          if(this.parentTagRelation.addTagTagRelation.tagIdStr.indexOf(',' + response.data[i].id + ',') != -1){
+          if(this.userRoleRelation.addUserRoleRelation.roleIdStr.indexOf(',' + response.data[i].id + ',') != -1){
             response.data[i].addType = 1;
           }
         }
-        this.parentTagRelation.addTagTagRelation.selectTagList = response.data;
+        this.userRoleRelation.addUserRoleRelation.selectRoleList = response.data;
       }).catch((response)=>{
         
       })
     },
-    handleParentRelationCurrentChange(val){
-      this.parentTagRelation.tagTagRelation.currentRow = val;
+    handleRelationCurrentChange(val){
+      this.userRoleRelation.userRoleRelation.currentRow = val;
     },
-    handleParentTagCurrentChange(val){
-      this.parentTagRelation.addTagTagRelation.currentRow = val;
+    handleRoleCurrentChange(val){
+      this.userRoleRelation.addUserRoleRelation.currentRow = val;
     },
-    formatterUserInfoStatus(row, column){
-      return this.gardener.userInfoStatus.get(row.status);
+    formatterUserRoleStatus(row, column){
+      return this.gardener.userRoleStatus.get(row.status);
     },
     backToList(){
       window.location.href = '#/admin/user/info/list';
