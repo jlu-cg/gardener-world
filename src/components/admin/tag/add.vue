@@ -18,8 +18,9 @@
             <el-input v-model="tag.name"></el-input>
           </el-form-item>
           <el-form-item label="标签分类">
-            <el-radio v-model="tag.tagType" :label="1">主话题</el-radio>
-            <el-radio v-model="tag.tagType" :label="2">非主话题</el-radio>
+            <el-radio v-model="tag.tagType" :label="1">文章精华</el-radio>
+            <el-radio v-model="tag.tagType" :label="2">文章</el-radio>
+            <el-radio v-model="tag.tagType" :label="3">碎片</el-radio>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">保存</el-button>

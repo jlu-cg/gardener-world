@@ -11,7 +11,7 @@
               <el-option label="标签" value="1"></el-option>
               <el-option label="文章" value="2"></el-option>
             </el-select>
-            <el-button slot="append" icon="el-icon-search">搜索</el-button>
+            <el-button slot="append" icon="el-icon-search" @click="onSubmit">搜索</el-button>
           </el-input>
         </el-col>
         <el-col :span="6">
@@ -107,6 +107,17 @@ export default {
     this.loadTags();
   },
   methods: {
+    onSubmit(){
+      if(this.searchForm.searchType == 1){
+        
+      }else{
+        this.article.hasMore = true;
+        this.article.searchForm.tagId = -1;
+        this.article.searchForm.title = this.searchForm.searchText;
+        this.article.articles = [];
+        this.loadArticles();
+      }
+    },
     viewDetail(index) {
       this.article.hasMore = true;
       this.article.searchForm.tagId = this.tag.tags[index].id;

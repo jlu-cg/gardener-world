@@ -18,8 +18,7 @@
             {{tag.name}}
           </el-form-item>
           <el-form-item label="标签分类">
-            <el-radio disabled v-model="tag.tagType" :label="1">主话题</el-radio>
-            <el-radio disabled v-model="tag.tagType" :label="2">非主话题</el-radio>
+            {{tag.tagName}}
           </el-form-item>
         </el-form>
       </el-col>
@@ -122,7 +121,8 @@ export default {
       tag : {
         id : 0,
         name : "",
-        tagType : 2
+        tagType : 0,
+        tagTypeName : ""
       },
       parentTagRelation : {
         tagTagRelation : {
@@ -193,6 +193,7 @@ export default {
         }
       }).then((response) => {
         this.tag = response.data;
+        this.tag.tagTypeName = this.gardener.tagType.get(this.tag.tagType)
       }).catch((response)=>{
         
       })

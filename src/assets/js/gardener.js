@@ -44,8 +44,9 @@ Gardener.relationTableRowClassName = function({row, rowIndex}) {
 
 Gardener.tagType = new Map([
   [0, ''],
-  [1, '主话题'],
-  [2, '非主话题']
+  [1, '文章精华'],
+  [2, '文章'],
+  [3, '碎片']
 ]);
 
 Gardener.tagRelateType = new Map([
