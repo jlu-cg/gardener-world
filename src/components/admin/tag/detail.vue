@@ -18,7 +18,7 @@
             {{tag.name}}
           </el-form-item>
           <el-form-item label="标签分类">
-            {{tag.tagName}}
+            {{tag.tagTypeName}}
           </el-form-item>
         </el-form>
       </el-col>

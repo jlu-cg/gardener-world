@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <el-page-header @back="backToList" content="修改标签">
+        <el-page-header @back="backToList" :content="title">
         </el-page-header>
       </el-col>
     </el-row>
@@ -37,9 +37,10 @@ export default {
     return {
       tag : {
         id : -1,
-        name : "",
+        name : '',
         tagType : 2
-      }
+      },
+      title : ''
     };
   },
   created(){
@@ -50,9 +51,11 @@ export default {
       var params = this.gardener.getParams();
       var tagId = this.gardener.getParamInt(params['tagId'], -1);
       if(tagId == -1){
+        this.title = '添加标签';
         return ;
       }
 
+      this.title = '修改标签';
       this.axios.get(this.gardener.adminBackBaseURL + 'tag/v1/detail', {
         params: {
           tagId : tagId

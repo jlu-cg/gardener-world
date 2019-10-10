@@ -11,6 +11,16 @@
           <el-form-item label="标签名">
             <el-input v-model="searchForm.name" placeholder="标签名"></el-input>
           </el-form-item>
+          <el-form-item label="类型">
+            <el-select v-model="searchForm.tagType" clearable placeholder="请选择">
+              <el-option
+                v-for="item in gardener.tagType"
+                :key="item[0]"
+                :label="item[1]"
+                :value="item[0]">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">查询</el-button>
           </el-form-item>
@@ -55,7 +65,7 @@ export default {
     return {
       searchForm : {
         name : '',
-        tagType: 0,
+        tagType: '',
         lastId : 0
       },
       tagList : [],
@@ -154,14 +164,28 @@ export default {
       if(this.currentRow === null){
         this.checkRow();
       }else{
-        window.location.href = '#/admin/article/list?tagId=' + this.currentRow.id;
+        if(this.currentRow.tagType === 1 || this.currentRow.tagType === 2){
+          window.location.href = '#/admin/article/list?tagId=' + this.currentRow.id;
+        }else{
+          this.$message({
+            message: '请选择文章标签查看',
+            type: 'warning'
+          });
+        }
       }
     },
     fragmentList(){
       if(this.currentRow === null){
         this.checkRow();
       }else{
-        window.location.href = '#/admin/fragment/list?tagId=' + this.currentRow.id;
+        if(this.currentRow.tagType === 3){
+          window.location.href = '#/admin/fragment/list?tagId=' + this.currentRow.id;
+        }else{
+          this.$message({
+            message: '请选择碎片标签查看',
+            type: 'warning'
+          });
+        }
       }
     },
     checkRow(){

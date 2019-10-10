@@ -43,26 +43,22 @@ Gardener.relationTableRowClassName = function({row, rowIndex}) {
 //----------------------------------- 码表相关 ------------------------------------------------
 
 Gardener.tagType = new Map([
-  [0, ''],
   [1, '文章精华'],
   [2, '文章'],
   [3, '碎片']
 ]);
 
 Gardener.tagRelateType = new Map([
-  [0, ''],
   [1, '父标签'],
   [2, '子标签']
 ]);
 
 Gardener.articleStatus = new Map([
-  [0, ''],
   [1, '已发布'],
   [2, '未发布']
 ]);
 
 Gardener.solutionType = new Map([
-  [0, ''],
   [1, '重要答案'],
   [2, '可能答案']
 ]);
@@ -74,13 +70,11 @@ Gardener.userInfoStatus = new Map([
 ]);
 
 Gardener.userRoleStatus = new Map([
-  [0, ''],
   [1, '有效'],
   [2, '无效']
 ]);
 
 Gardener.userPrivilegeStatus = new Map([
-  [0, ''],
   [1, '有效'],
   [2, '无效']
 ]);
