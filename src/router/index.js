@@ -8,9 +8,12 @@ import ViewArticleDetail from '@/components/views/article/detail'
 import AdminLogin from '@/components/admin/login'
 import AdminIndex from '@/components/admin/index'
 import AdminHome from '@/components/admin/home'
-import AdminTagList from '@/components/admin/tag/list'
-import AdminTagAdd from '@/components/admin/tag/add'
-import AdminTagDetail from '@/components/admin/tag/detail'
+
+import AdminTagArticleList from '@/components/admin/tag/article/list'
+import AdminTagArticleAdd from '@/components/admin/tag/article/add'
+import AdminTagArticleDetail from '@/components/admin/tag/Article/detail'
+import AdminTagFragmentList from '@/components/admin/tag/fragment/list'
+import AdminTagFragmentAdd from '@/components/admin/tag/fragment/add'
 
 import AdminEnvironmentLabelList from '@/components/admin/environment/list'
 import AdminEnvironmentLabelAdd from '@/components/admin/environment/add'
@@ -67,16 +70,24 @@ const routes = [
         component: AdminLogin
       },
       {
-        path:'tag/list',
-        component: AdminTagList
+        path:'tag/article/list',
+        component: AdminTagArticleList
       },
       {
-        path:'tag/add',
-        component: AdminTagAdd
+        path:'tag/article/add',
+        component: AdminTagArticleAdd
       },
       {
-        path:'tag/detail',
-        component: AdminTagDetail
+        path:'tag/article/detail',
+        component: AdminTagArticleDetail
+      },
+      {
+        path:'tag/fragment/list',
+        component: AdminTagFragmentList
+      },
+      {
+        path:'tag/fragment/add',
+        component: AdminTagFragmentAdd
       },
       {
         path:'environment/label/list',

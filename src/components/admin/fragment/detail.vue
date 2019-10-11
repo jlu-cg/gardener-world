@@ -35,6 +35,7 @@
       </el-row>
     </el-card>
 
+<!-- ----------------------------------标签--------------------------------------------  -->
     <el-row>
       <el-col :span="24">
         <div class="gardener-height-6"></div>
@@ -49,14 +50,14 @@
       </el-row>
       <el-row class="gardener-title-nav">
         <el-col :span="24">
-          <el-button type="primary" size="small" @click="addFragmentTagRelation" round>添加</el-button>
-          <el-button type="primary" size="small" @click="delFragmentTagRelation" round>删除</el-button>
+          <el-button type="primary" size="small" @click="addTagRelation" round>添加</el-button>
+          <el-button type="primary" size="small" @click="delTagRelation" round>删除</el-button>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="24">
-          <el-table ref="singleTagTable" :data="fragmentTagRelation.fragmentTagRelations" highlight-current-row
-              @current-change="handleFragmentCurrentChange" style="width: 100%;cursor:pointer;" border>
+          <el-table ref="singleTagTable" :data="tagRelation.tagRelations" highlight-current-row
+              @current-change="handleTagCurrentChange" style="width: 100%;cursor:pointer;" border>
             <el-table-column prop="name" label="标签名">
             </el-table-column>
             <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
@@ -64,18 +65,18 @@
           </el-table>
         </el-col>
       </el-row>
-      <el-dialog title="添加碎片关联标签" :visible.sync="fragmentTagRelation.addFragmentTagRelationListVisible">
-        <el-form :inline="true" :model="fragmentTagRelation.searchTagForm" class="demo-form-inline">
+      <el-dialog title="添加碎片关联标签" :visible.sync="tagRelation.addTagRelationListVisible">
+        <el-form :inline="true" :model="tagRelation.searchTagForm" class="demo-form-inline">
           <el-form-item label="标签名">
-            <el-input v-model="fragmentTagRelation.searchTagForm.name" placeholder="标签名"></el-input>
+            <el-input v-model="tagRelation.searchTagForm.name" placeholder="标签名"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSearchTagSubmit">查询</el-button>
           </el-form-item>
         </el-form>
 
-        <el-table ref="singleTagSelectTable" :data="fragmentTagRelation.selectTagList" highlight-current-row 
-            @current-change="handleFragmentSelectCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
+        <el-table ref="singleTagSelectTable" :data="tagRelation.selectTagList" highlight-current-row 
+            @current-change="handleTagSelectCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="name" label="标签名">
           </el-table-column>
           <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
@@ -83,8 +84,58 @@
         </el-table>
 
         <div slot="footer" class="dialog-footer">
-          <el-button @click="fragmentTagRelation.addFragmentTagRelationListVisible = false">取 消</el-button>
+          <el-button @click="tagRelation.addTagRelationListVisible = false">取 消</el-button>
           <el-button type="primary" @click="selectTag">确定</el-button>
+        </div>
+      </el-dialog>
+    </el-card>
+<!-- ----------------------------------相关介绍--------------------------------------------  -->
+    <el-row>
+      <el-col :span="24">
+        <div class="gardener-height-6"></div>
+      </el-col>
+    </el-row>
+
+    <el-card shadow="hover">
+      <el-row>
+        <el-col :span="24">
+          <el-divider content-position="left">关联介绍</el-divider>
+        </el-col>
+      </el-row>
+      <el-row class="gardener-title-nav">
+        <el-col :span="24">
+          <el-button type="primary" size="small" @click="addIntroductionRelation" round>添加</el-button>
+          <el-button type="primary" size="small" @click="delIntroductionRelation" round>删除</el-button>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <el-table ref="singleIntroductionTable" :data="introductionRelation.introductionRelations" highlight-current-row
+              @current-change="handleIntroductionCurrentChange" style="width: 100%;cursor:pointer;" border>
+            <el-table-column prop="summary" label="简介">
+            </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
+      <el-dialog title="添加碎片关联介绍" :visible.sync="introductionRelation.addIntroductionRelationListVisible">
+        <el-form :inline="true" :model="introductionRelation.searchIntroductionForm" class="demo-form-inline">
+          <el-form-item label="简介">
+            <el-input v-model="introductionRelation.searchIntroductionForm.summary" placeholder="简介"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSearchIntroductionSubmit">查询</el-button>
+          </el-form-item>
+        </el-form>
+
+        <el-table ref="singleIntroductionSelectTable" :data="introductionRelation.selectIntroductionList" highlight-current-row 
+            @current-change="handleIntroductionSelectCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
+          <el-table-column prop="summary" label="简介">
+          </el-table-column>
+        </el-table>
+
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="introductionRelation.addIntroductionRelationListVisible = false">取 消</el-button>
+          <el-button type="primary" @click="selectIntroduction">确定</el-button>
         </div>
       </el-dialog>
     </el-card>
@@ -100,20 +151,37 @@ export default {
         title : "",
         content : ""
       },
-      fragmentTagRelation : {
-        fragmentTagRelationList : {
+      tagRelation : {
+        tagRelationList : {
           fragmentId : -1
         },
-        fragmentTagRelationForm : {
+        tagRelationForm : {
           fragmentId : -1,
           tagId : -1
         },
-        fragmentTagRelations : [],
+        tagRelations : [],
         searchTagForm : {
           name : ''
         },
-        addFragmentTagRelationListVisible : false,
+        addTagRelationListVisible : false,
         selectTagList : [],
+        currentRow : null,
+        currentSelectRow : null
+      },
+      introductionRelation : {
+        introductionRelationList : {
+          fragmentId : -1
+        },
+        introductionRelationForm : {
+          fragmentId : -1,
+          detailIntroductionId : -1
+        },
+        introductionRelations : [],
+        searchIntroductionForm : {
+          summary : ''
+        },
+        addIntroductionRelationListVisible : false,
+        selectIntroductionList : [],
         currentRow : null,
         currentSelectRow : null
       }
@@ -121,7 +189,8 @@ export default {
   },
   created(){
     this.loadData();
-    this.loadFragmentTagRelations();
+    this.loadTagRelations();
+    this.loadIntroductionRelations();
   },
   methods:{
     loadData(){
@@ -136,8 +205,10 @@ export default {
         });
         return ;
       }
-      this.fragmentTagRelation.fragmentTagRelationList.fragmentId = fragmentId;
-      this.fragmentTagRelation.fragmentTagRelationForm.fragmentId = fragmentId;
+      this.tagRelation.tagRelationList.fragmentId = fragmentId;
+      this.tagRelation.tagRelationForm.fragmentId = fragmentId;
+      this.introductionRelation.introductionRelationList.fragmentId = fragmentId;
+      this.introductionRelation.introductionRelationForm.fragmentId = fragmentId;
       this.axios.get(this.gardener.adminBackBaseURL + 'fragment/v1/detail', {
         params: {
           fragmentId : fragmentId
@@ -148,30 +219,31 @@ export default {
         
       })
     },
-    loadFragmentTagRelations(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/tag/relation/v1/list', this.fragmentTagRelation.fragmentTagRelationList
+//----------------------------------标签--------------------------------------------
+    loadTagRelations(){
+      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/tag/relation/v1/list', this.tagRelation.tagRelationList
       ).then((response) => {
-        this.fragmentTagRelation.fragmentTagRelations = response.data;
+        this.tagRelation.tagRelations = response.data;
       }).catch((response)=>{
         
       })
     },
-    handleFragmentCurrentChange(val){
-      this.fragmentTagRelation.currentRow = val;
+    handleTagCurrentChange(val){
+      this.tagRelation.currentRow = val;
     },
-    handleFragmentSelectCurrentChange(val){
-      this.fragmentTagRelation.currentSelectRow = val;
+    handleTagSelectCurrentChange(val){
+      this.tagRelation.currentSelectRow = val;
     },
     formatterTagType(row, column){
       return this.gardener.tagType.get(row.tagType);
     },
     selectTag(){
-      if(this.fragmentTagRelation.currentSelectRow === null){
+      if(this.tagRelation.currentSelectRow === null){
         this.checkRow();
         return ;
       }
-      this.fragmentTagRelation.fragmentTagRelationForm.tagId = this.fragmentTagRelation.currentSelectRow.id;
-      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/tag/relation/v1/save', this.fragmentTagRelation.fragmentTagRelationForm
+      this.tagRelation.tagRelationForm.tagId = this.tagRelation.currentSelectRow.id;
+      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/tag/relation/v1/save', this.tagRelation.tagRelationForm
       ).then((response) => {
         if(response.data === -1){
             this.$message({
@@ -183,26 +255,26 @@ export default {
             message: '添加关联标签成功',
             type: 'success'
           });
-          this.loadFragmentTagRelations();
+          this.loadTagRelations();
         }
       }).catch((response)=>{
         
       })
-      this.fragmentTagRelation.addFragmentTagRelationListVisible = false;
+      this.tagRelation.addTagRelationListVisible = false;
     },
     onSearchTagSubmit(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/list', this.fragmentTagRelation.searchTagForm
+      this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/list', this.tagRelation.searchTagForm
       ).then((response) => {
-        this.fragmentTagRelation.selectTagList = response.data;
+        this.tagRelation.selectTagList = response.data;
       }).catch((response)=>{
         
       })
     },
-    addFragmentTagRelation(){
-      this.fragmentTagRelation.addFragmentTagRelationListVisible = true;
+    addTagRelation(){
+      this.tagRelation.addTagRelationListVisible = true;
     },
-    delFragmentTagRelation(){
-      if(this.fragmentTagRelation.currentRow === null){
+    delTagRelation(){
+      if(this.tagRelation.currentRow === null){
         this.checkRow();
       }else{
         this.$confirm('此操作将永久删除该关联, 是否继续?', '提示', {
@@ -210,13 +282,91 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.axios.get(this.gardener.adminBackBaseURL + 'fragment/tag/relation/v1/delete?fragmentTagRelationId=' + this.fragmentTagRelation.currentRow.id
+          this.axios.get(this.gardener.adminBackBaseURL + 'fragment/tag/relation/v1/delete?fragmentTagRelationId=' + this.tagRelation.currentRow.id
           ).then((response) => {
             this.$message({
               type: 'success',
               message: '删除成功!'
             });
-            this.loadFragmentTagRelations();
+            this.loadTagRelations();
+          }).catch((response)=>{
+            
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+      }
+    },
+//----------------------------------介绍--------------------------------------------
+    loadIntroductionRelations(){
+      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/introduction/relation/v1/list', this.introductionRelation.introductionRelationList
+      ).then((response) => {
+        this.introductionRelation.introductionRelations = response.data;
+      }).catch((response)=>{
+        
+      })
+    },
+    handleIntroductionCurrentChange(val){
+      this.introductionRelation.currentRow = val;
+    },
+    handleIntroductionSelectCurrentChange(val){
+      this.introductionRelation.currentSelectRow = val;
+    },
+    selectIntroduction(){
+      if(this.introductionRelation.currentSelectRow === null){
+        this.checkRow();
+        return ;
+      }
+      this.introductionRelation.introductionRelationForm.detailIntroductionId = this.introductionRelation.currentSelectRow.id;
+      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/introduction/relation/v1/save', this.introductionRelation.introductionRelationForm
+      ).then((response) => {
+        if(response.data === -1){
+            this.$message({
+            message: '添加关联标签失败',
+            type: 'error'
+          });
+        }else{
+          this.$message({
+            message: '添加关联标签成功',
+            type: 'success'
+          });
+          this.loadIntroductionRelations();
+        }
+      }).catch((response)=>{
+        
+      })
+      this.introductionRelation.addIntroductionRelationListVisible = false;
+    },
+    onSearchIntroductionSubmit(){
+      this.axios.post(this.gardener.adminBackBaseURL + 'detail/introduction/v1/list', this.introductionRelation.searchIntroductionForm
+      ).then((response) => {
+        this.introductionRelation.selectIntroductionList = response.data;
+      }).catch((response)=>{
+        
+      })
+    },
+    addIntroductionRelation(){
+      this.introductionRelation.addIntroductionRelationListVisible = true;
+    },
+    delIntroductionRelation(){
+      if(this.introductionRelation.currentRow === null){
+        this.checkRow();
+      }else{
+        this.$confirm('此操作将永久删除该关联, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.axios.get(this.gardener.adminBackBaseURL + 'fragment/introduction/relation/v1/delete?fragmentIntroductionRelationId=' + this.introductionRelation.currentRow.id
+          ).then((response) => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            this.loadIntroductionRelations();
           }).catch((response)=>{
             
           })
@@ -240,6 +390,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

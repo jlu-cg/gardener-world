@@ -115,7 +115,7 @@
 </template>
 <script>
 export default {
-  name: 'AdminTagDetail',
+  name: 'AdminTagArticleDetail',
   data() {
     return {
       tag : {

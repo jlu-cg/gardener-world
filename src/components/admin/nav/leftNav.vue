@@ -7,7 +7,8 @@
         <i class="el-icon-s-flag"></i>
         <span slot="title">标签</span>
       </template>
-      <el-menu-item index="/admin/tag/list">标签</el-menu-item>
+      <el-menu-item index="/admin/tag/article/list">文章标签</el-menu-item>
+      <el-menu-item index="/admin/tag/fragment/list">碎片标签</el-menu-item>
       <el-menu-item index="/admin/environment/label/list">环境</el-menu-item>
     </el-submenu>
     <el-submenu index="2">

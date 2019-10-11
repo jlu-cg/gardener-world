@@ -13,14 +13,13 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-form ref="tag" :model="tag" label-width="160px">
+        <el-form ref="tagArticle" :model="tagArticle" label-width="160px">
           <el-form-item label="标签名">
-            <el-input v-model="tag.name"></el-input>
+            <el-input v-model="tagArticle.name"></el-input>
           </el-form-item>
           <el-form-item label="标签分类">
-            <el-radio v-model="tag.tagType" :label="1">文章精华</el-radio>
-            <el-radio v-model="tag.tagType" :label="2">文章</el-radio>
-            <el-radio v-model="tag.tagType" :label="3">碎片</el-radio>
+            <el-radio v-model="tagArticle.type" :label="1">精华</el-radio>
+            <el-radio v-model="tagArticle.type" :label="2">普通</el-radio>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -32,13 +31,13 @@
 </template>
 <script>
 export default {
-  name: 'AdminTagAdd',
+  name: 'AdminTagArticleAdd',
   data() {
     return {
-      tag : {
+      tagArticle : {
         id : -1,
         name : '',
-        tagType : 2
+        type : 2
       },
       title : ''
     };
@@ -49,16 +48,16 @@ export default {
   methods: {
     loadEdit(){
       var params = this.gardener.getParams();
-      var tagId = this.gardener.getParamInt(params['tagId'], -1);
-      if(tagId == -1){
-        this.title = '添加标签';
+      var tagArticleId = this.gardener.getParamInt(params['tagArticleId'], -1);
+      if(tagArticleId == -1){
+        this.title = '添加文章标签';
         return ;
       }
 
-      this.title = '修改标签';
-      this.axios.get(this.gardener.adminBackBaseURL + 'tag/v1/detail', {
+      this.title = '修改文章标签';
+      this.axios.get(this.gardener.adminBackBaseURL + 'tag/article/v1/detail', {
         params: {
-          tagId : tagId
+          tagArticleId : tagArticleId
         }
       }).then((response) => {
         this.tag = response.data;
@@ -67,7 +66,7 @@ export default {
       })
     },
     onSubmit() {
-      this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/save', this.tag)
+      this.axios.post(this.gardener.adminBackBaseURL + 'tag/article/v1/save', this.tagArticle)
       .then((response) => {
         if(response.data == 0){
           this.$alert('添加成功', '添加提示', {
@@ -84,7 +83,7 @@ export default {
       })
     },
     backToList(){
-      window.location.href = '#/admin/tag/list';
+      window.location.href = '#/admin/tag/article/list';
     }
   }
 }
