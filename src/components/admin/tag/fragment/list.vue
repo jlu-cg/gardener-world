@@ -29,7 +29,7 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-divider content-position="left">标签列表</el-divider>
+        <el-divider content-position="left">碎片标签列表</el-divider>
       </el-col>
     </el-row>
     <el-row class="gardener-title-nav">

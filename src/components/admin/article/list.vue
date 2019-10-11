@@ -54,6 +54,7 @@ export default {
     return {
       searchForm : {
         title : '',
+        tagArticleId : -1,
         lastId : 0
       },
       articleList : [],
@@ -64,6 +65,9 @@ export default {
     };
   },
   created(){
+    var params = this.gardener.getParams();
+    var tagArticleId = this.gardener.getParamInt(params['tagArticleId'], -1);
+    this.searchForm.tagArticleId = tagArticleId;
     this.loadArticles();
   },
   methods:{
