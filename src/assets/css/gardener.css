@@ -39,3 +39,12 @@
 .el-table .success-row {
     background: #f0f9eb;
 }
+
+.gardener-line-height-6{
+    height:1px;
+    display:block;
+    width: 100%;
+    margin : 6px 0;
+    background-color : #dcdfe6;
+    position : relative;
+}

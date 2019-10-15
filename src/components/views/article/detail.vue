@@ -17,6 +17,8 @@
         <el-card shadow="hover">
           <el-collapse v-model="activeNames">
             <el-collapse-item v-for="(relation, index) in articleDocument.relations" :key="index" :title="relation.title" :name="relation.position">
+              <div><el-link type="primary">详细说明</el-link></div>
+              <div class="gardener-line-height-6"></div>
               <div v-html="relation.content"></div>
             </el-collapse-item>
           </el-collapse>

@@ -66,7 +66,7 @@
               @current-change="handleTagCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="tableRowClassName" border>
             <el-table-column prop="name" label="标签名">
             </el-table-column>
-            <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
+            <el-table-column prop="type" :formatter="formatterTagType" label="标签类型" width="260">
             </el-table-column>
           </el-table>
         </el-col>
@@ -85,13 +85,13 @@
             @current-change="handleTagSelectCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="name" label="标签名">
           </el-table-column>
-          <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
+          <el-table-column prop="type" :formatter="formatterTagType" label="标签类型" width="260">
           </el-table-column>
         </el-table>
 
         <div slot="footer" class="dialog-footer">
           <el-button @click="articleTagRelation.addArticleTagRelationListVisible = false">取 消</el-button>
-          <el-button type="primary" @click="selectTag">确定</el-button>
+          <el-button type="primary" @click="selectArticleTag">确定</el-button>
         </div>
       </el-dialog>
     </el-card>
@@ -363,7 +363,7 @@ export default {
     /** ------------------------------------------------------------------------------------------------------- */
     //标签相关
     loadArticleTagRelations(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'article/tag/relation/v1/list', this.articleTagRelation.articleTagRelationList
+      this.axios.post(this.gardener.adminBackBaseURL + 'article/tag/relation/v1/list/tag', this.articleTagRelation.articleTagRelationList
       ).then((response) => {
         this.articleTagRelation.articleTagRelations = response.data;
         for(var i = 0; i < this.articleTagRelation.articleTagRelations.length; i++){
@@ -377,10 +377,10 @@ export default {
       this.articleTagRelation.currentRow = val;
     },
     formatterTagType(row, column){
-      return this.gardener.tagType.get(row.tagType);
+      return this.gardener.tagType.get(row.type);
     },
     onSearchTagSubmit(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/list', this.articleTagRelation.searchTagForm
+      this.axios.post(this.gardener.adminBackBaseURL + 'tag/article/v1/list', this.articleTagRelation.searchTagForm
       ).then((response) => {
         if(response.data === undefined){
           return;
@@ -425,7 +425,7 @@ export default {
         });
       }
     },
-    selectTag(){
+    selectArticleTag(){
       if(this.articleTagRelation.currentSelectRow === null){
         this.checkRow();
         return ;
@@ -436,7 +436,7 @@ export default {
         return ;
       }
 
-      this.articleTagRelation.articleTagRelationForm.tagId = this.articleTagRelation.currentSelectRow.id;
+      this.articleTagRelation.articleTagRelationForm.tagArticleId = this.articleTagRelation.currentSelectRow.id;
       this.axios.post(this.gardener.adminBackBaseURL + 'article/tag/relation/v1/save', this.articleTagRelation.articleTagRelationForm
       ).then((response) => {
         if(response.data === -1){

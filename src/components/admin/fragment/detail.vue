@@ -60,7 +60,7 @@
               @current-change="handleTagCurrentChange" style="width: 100%;cursor:pointer;" border>
             <el-table-column prop="name" label="标签名">
             </el-table-column>
-            <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
+            <el-table-column prop="type" :formatter="formatterTagType" label="标签类型" width="260">
             </el-table-column>
           </el-table>
         </el-col>
@@ -79,7 +79,7 @@
             @current-change="handleTagSelectCurrentChange" style="width: 100%;cursor:pointer;" :row-class-name="gardener.relationTableRowClassName" border>
           <el-table-column prop="name" label="标签名">
           </el-table-column>
-          <el-table-column prop="tagType" :formatter="formatterTagType" label="标签类型" width="260">
+          <el-table-column prop="type" :formatter="formatterTagType" label="标签类型" width="260">
           </el-table-column>
         </el-table>
 
@@ -157,7 +157,7 @@ export default {
         },
         tagRelationForm : {
           fragmentId : -1,
-          tagId : -1
+          tagFragmentId : -1
         },
         tagRelations : [],
         searchTagForm : {
@@ -221,7 +221,7 @@ export default {
     },
 //----------------------------------标签--------------------------------------------
     loadTagRelations(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/tag/relation/v1/list', this.tagRelation.tagRelationList
+      this.axios.post(this.gardener.adminBackBaseURL + 'fragment/tag/relation/v1/list/tag', this.tagRelation.tagRelationList
       ).then((response) => {
         this.tagRelation.tagRelations = response.data;
       }).catch((response)=>{
@@ -235,14 +235,14 @@ export default {
       this.tagRelation.currentSelectRow = val;
     },
     formatterTagType(row, column){
-      return this.gardener.tagType.get(row.tagType);
+      return this.gardener.tagType.get(row.type);
     },
     selectTag(){
       if(this.tagRelation.currentSelectRow === null){
         this.checkRow();
         return ;
       }
-      this.tagRelation.tagRelationForm.tagId = this.tagRelation.currentSelectRow.id;
+      this.tagRelation.tagRelationForm.tagFragmentId = this.tagRelation.currentSelectRow.id;
       this.axios.post(this.gardener.adminBackBaseURL + 'fragment/tag/relation/v1/save', this.tagRelation.tagRelationForm
       ).then((response) => {
         if(response.data === -1){
@@ -263,7 +263,7 @@ export default {
       this.tagRelation.addTagRelationListVisible = false;
     },
     onSearchTagSubmit(){
-      this.axios.post(this.gardener.adminBackBaseURL + 'tag/v1/list', this.tagRelation.searchTagForm
+      this.axios.post(this.gardener.adminBackBaseURL + 'tag/fragment/v1/list', this.tagRelation.searchTagForm
       ).then((response) => {
         this.tagRelation.selectTagList = response.data;
       }).catch((response)=>{
